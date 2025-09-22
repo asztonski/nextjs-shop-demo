@@ -25,7 +25,7 @@ function formatPrice(minor: number) {
   }).format(minor / 100);
 }
 
-export const ProductsPage = async () => {
+export default async function ProductsPage() {
   const products = await getProducts();
 
   return (
@@ -42,4 +42,4 @@ export const ProductsPage = async () => {
       </ul>
     </section>
   );
-};
+}
