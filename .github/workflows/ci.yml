@@ -19,7 +19,7 @@ jobs:
         run: corepack enable
 
       - name: Use repo pnpm version
-        run: corepack use # weźmie pnpm z package.json
+        run: corepack use pnpm@9.12.3 --activate # weźmie pnpm z package.json
 
       - name: Cache pnpm store
         uses: actions/cache@v4
