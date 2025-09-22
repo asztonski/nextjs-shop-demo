@@ -1,33 +1,48 @@
 ﻿name: CI
+
 on:
   pull_request:
-    branches: [main]
+    branches: [main, develop]
   push:
     branches: [feature/**, fix/**]
+
 jobs:
   test-build:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-node@v4
         with:
-          node-version: 22
-          cache: pnpm
-      - uses: pnpm/action-setup@v4
-        with:
-          version: 9
-      - run: pnpm install --frozen-lockfile
+          node-version: "22"
+          cache: "pnpm"
+
+      # DX: ensure pnpm is available and matches package.json packageManager
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Use repo pnpm version
+        run: corepack use
+
+      - name: Install deps
+        run: pnpm install --frozen-lockfile
+
       - name: Lint
         run: pnpm exec eslint . --max-warnings=0
+
       - name: Type check
         run: pnpm exec tsc -p tsconfig.json --noEmit
+
       - name: Unit tests (with coverage)
         run: pnpm exec vitest run --coverage
+
       - name: Upload coverage artifact
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: coverage
           path: coverage
+
       - name: Build
         run: pnpm build
