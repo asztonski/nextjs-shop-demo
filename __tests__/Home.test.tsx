@@ -6,7 +6,7 @@ describe("Home page", () => {
   it("renders a heading", () => {
     render(<Home />);
     expect(
-      screen.getByRole("heading", { name: /get started/i })
+      screen.getByRole("link", { name: /read our docs/i })
     ).toBeInTheDocument();
   });
 });
