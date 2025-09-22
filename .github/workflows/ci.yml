@@ -13,13 +13,13 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: "22" # bez cache: pnpm
+          node-version: "22" # DX: no 'cache: pnpm' to avoid early pnpm call
 
       - name: Enable Corepack
         run: corepack enable
 
-      - name: Use repo pnpm version
-        run: corepack use pnpm@9.12.3 --activate # weźmie pnpm z package.json
+      - name: Prepare pnpm via Corepack
+        run: corepack prepare pnpm@9.12.3 --activate # DX: match packageManager
 
       - name: Cache pnpm store
         uses: actions/cache@v4
