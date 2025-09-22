@@ -1,7 +1,7 @@
 // __tests__/Products.test.tsx
 import { describe, it, expect, vi, afterEach } from "vitest";
 import { render, screen } from "@testing-library/react";
-import { ProductsPage } from "@/app/products/page";
+import ProductsPage from "@/app/products/page";
 import products from "../data/products.json";
 
 // Provide a request-like context for Next dynamic API used in the page
