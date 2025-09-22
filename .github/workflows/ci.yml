@@ -1,5 +1,4 @@
 ﻿name: CI
-
 on:
   pull_request:
     branches: [main, develop]
@@ -9,21 +8,26 @@ on:
 jobs:
   test-build:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v4
 
       - uses: actions/setup-node@v4
         with:
-          node-version: "22"
-          cache: "pnpm"
+          node-version: "22" # bez cache: pnpm
 
-      # DX: ensure pnpm is available and matches package.json packageManager
       - name: Enable Corepack
         run: corepack enable
 
       - name: Use repo pnpm version
-        run: corepack use
+        run: corepack use # weźmie pnpm z package.json
+
+      - name: Cache pnpm store
+        uses: actions/cache@v4
+        with:
+          path: ~/.pnpm-store
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-
 
       - name: Install deps
         run: pnpm install --frozen-lockfile
