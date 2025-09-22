@@ -1,3 +1,4 @@
+import React from "react";
 import { headers } from "next/headers";
 import type { Product } from "@/types/Product";
 
@@ -24,7 +25,7 @@ function formatPrice(minor: number) {
   }).format(minor / 100);
 }
 
-export const ProductPage = async () => {
+export const ProductsPage = async () => {
   const products = await getProducts();
 
   return (
