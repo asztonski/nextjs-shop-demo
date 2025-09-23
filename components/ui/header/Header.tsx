@@ -11,14 +11,36 @@ export const Header = () => {
     { href: "/connect", label: "Connect a Wallet" },
   ];
 
-  const NavItem = ({
-    href,
-    children,
-  }: Readonly<{ href: string; children: React.ReactNode }>) => (
-    <li className="tap">
-      <NavLink href={href}>{children}</NavLink>
-    </li>
-  );
+  const NavList = ({ className }: { className?: string }) => {
+    const NavItem = ({
+      href,
+      children,
+    }: {
+      href: string;
+      children: React.ReactNode;
+    }) => {
+      return (
+        <li className="tap">
+          <NavLink href={href}>{children}</NavLink>
+        </li>
+      );
+    };
+    return (
+      <nav className={`${className} gap-8`}>
+        <ul className={`flex items-center gap-12`}>
+          {navLinks.map(({ href, label }) => (
+            <NavItem key={href} href={href}>
+              {label}
+            </NavItem>
+          ))}
+        </ul>
+        <Button>
+          <img src="/buttons/user.svg" alt="user icon" />
+          <span>Sign up</span>
+        </Button>
+      </nav>
+    );
+  };
 
   return (
     <header className="w-full flex justify-between items-center py-5 px-12">
@@ -36,20 +58,7 @@ export const Header = () => {
           className="h-5 w-auto"
         />
       </Link>
-
-      <nav className="hidden items-center lg:flex" aria-label="Primary">
-        <ul className="flex items-center gap-12">
-          {navLinks.map(({ href, label }) => (
-            <NavItem key={href} href={href}>
-              {label}
-            </NavItem>
-          ))}
-        </ul>
-        <Button className="ml-8">
-          <img src="/buttons/user.svg" alt="user icon" />
-          <span>Sign up</span>
-        </Button>
-      </nav>
+      <NavList className="hidden lg:flex" />
     </header>
   );
 };
