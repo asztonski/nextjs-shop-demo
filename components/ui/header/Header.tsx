@@ -15,10 +15,9 @@ const navLinks = [
 type NavItemProps = {
   href: string;
   children: React.ReactNode;
-  onClick?: () => void;
 };
-const NavItem = ({ href, children, onClick }: NavItemProps) => (
-  <li className="tap w-full text-center lg:w-auto" onClick={onClick}>
+const NavItem = ({ href, children }: NavItemProps) => (
+  <li className="tap w-full text-center lg:w-auto">
     <NavLink href={href}>{children}</NavLink>
   </li>
 );
@@ -48,7 +47,7 @@ const NavList = ({
         }`}
       >
         {navLinks.map(({ href, label }) => (
-          <NavItem key={href} href={href} onClick={onItemClick}>
+          <NavItem key={href} href={href}>
             {label}
           </NavItem>
         ))}
@@ -136,7 +135,7 @@ export const Header = () => {
         aria-hidden={!isOpen}
       >
         <div className="px-12 py-6 w-max m-auto">
-          <NavList id={menuId} vertical onItemClick={closeMenu} />
+          <NavList id={menuId} vertical />
         </div>
       </div>
     </header>
