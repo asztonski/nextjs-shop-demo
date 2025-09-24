@@ -2,6 +2,7 @@
 
 import { useCallback, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Sling as Hamburger } from "hamburger-react";
 import { NavLink, ButtonLink } from "../link/Link";
 
@@ -53,7 +54,13 @@ const NavList = ({
         ))}
       </ul>
       <ButtonLink href="/signup">
-        <img src="/buttons/user.svg" alt="user icon" />
+        <Image
+          className="w-auto"
+          src="/buttons/user.svg"
+          alt="user icon"
+          width={16}
+          height={16}
+        />
         <span>Sign up</span>
       </ButtonLink>
     </nav>
@@ -80,17 +87,21 @@ export const Header = () => {
         }`}
       />
       {/* Logo */}
-      <Link href="/" className="flex items-center gap-4 z-10" aria-label="Home">
-        <img
+      <Link href="/" className="flex items-center gap-3 z-10">
+        <Image
           src="/logos/header-logo.svg"
           alt=""
           aria-hidden
           className="h-8 w-auto"
+          width={32}
+          height={32}
         />
-        <img
+        <Image
           src="/logos/header-text-logo.svg"
           alt="Next Shop"
           className="h-5 w-auto hidden xs:block"
+          width={72}
+          height={20}
         />
       </Link>
 
