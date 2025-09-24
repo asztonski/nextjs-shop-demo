@@ -74,7 +74,7 @@ export const Header = () => {
       className={`w-full fixed top-0 left-0 flex justify-between items-center py-5 px-12`}
     >
       <div
-        className={`absolute w-full inset-0 bg-background-muted/95 lg:bg-background-muted/85 ease-linear h-screen transition-transform duration-[${ANIM_MS}ms] ${
+        className={`absolute w-full bg-background/85 lg:blur-xl inset-0 ease-linear h-screen transition-transform duration-[${ANIM_MS}ms] ${
           isOpen
             ? "translate-y-0"
             : "pointer-events-none delay-150 -translate-y-[85vh] lg:-translate-y-[87.5vh]"
