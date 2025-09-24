@@ -3,8 +3,7 @@
 import { useCallback, useState } from "react";
 import Link from "next/link";
 import { Sling as Hamburger } from "hamburger-react";
-import { Button } from "../button/Button";
-import { NavLink } from "../link/Link";
+import { NavLink, ButtonLink } from "../link/Link";
 
 const navLinks = [
   { href: "/marketplace", label: "Marketplace" },
@@ -53,10 +52,10 @@ const NavList = ({
           </NavItem>
         ))}
       </ul>
-      <Button>
+      <ButtonLink href="/signup">
         <img src="/buttons/user.svg" alt="user icon" />
         <span>Sign up</span>
-      </Button>
+      </ButtonLink>
     </nav>
   );
 };
