@@ -12,8 +12,11 @@
   --color-background-muted: var(--background-muted);
   --color-foreground: var(--foreground);
   --color-accent: var(--accent);
+
   --font-sans: var(--font-work-sans);
   --font-mono: var(--font-space-mono);
+
+  --breakpoint-xs: 480px;
 }
 
 @media (prefers-color-scheme: dark) {
