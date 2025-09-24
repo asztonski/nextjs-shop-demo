@@ -26,14 +26,8 @@ type NavListProps = {
   id?: string;
   className?: string;
   vertical?: boolean;
-  onItemClick?: () => void;
 };
-const NavList = ({
-  id,
-  className = "",
-  vertical = false,
-  onItemClick,
-}: NavListProps) => {
+const NavList = ({ id, className = "", vertical = false }: NavListProps) => {
   return (
     <nav
       id={id}
@@ -71,7 +65,6 @@ export const Header = () => {
   const ANIM_MS = 200;
   const menuId = "primary-nav";
 
-  const closeMenu = useCallback(() => setIsOpen(false), []);
   const toggleMenu = useCallback((next: boolean) => setIsOpen(next), []);
 
   return (
