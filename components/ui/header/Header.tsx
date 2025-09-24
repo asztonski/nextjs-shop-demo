@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Sling as Hamburger } from "hamburger-react";
@@ -65,12 +65,8 @@ export const Header = () => {
   const ANIM_MS = 200;
   const menuId = "primary-nav";
 
-  const toggleMenu = useCallback((next: boolean) => setIsOpen(next), []);
-
   return (
-    <header
-      className={`w-full fixed top-0 left-0 flex justify-between items-center py-5 px-12`}
-    >
+    <header className="w-full fixed top-0 left-0 flex justify-between items-center py-5 px-12">
       <div
         className={`absolute w-full bg-background/85 lg:blur-xl inset-0 ease-linear h-screen transition-transform duration-[${ANIM_MS}ms] ${
           isOpen
@@ -78,7 +74,7 @@ export const Header = () => {
             : "pointer-events-none delay-150 -translate-y-[85vh] lg:-translate-y-[87.5vh]"
         }`}
       />
-      {/* Logo */}
+
       <Link href="/" className="flex items-center gap-3 z-10">
         <Image
           src="/logos/header-logo.svg"
@@ -97,14 +93,12 @@ export const Header = () => {
         />
       </Link>
 
-      {/* Desktop Navigation */}
       <NavList id={menuId} className="hidden lg:flex z-10" />
 
-      {/* Mobile Navigation */}
       <div className="flex z-10 lg:hidden">
         <Hamburger
           toggled={isOpen}
-          toggle={toggleMenu}
+          toggle={setIsOpen}
           size={22}
           duration={ANIM_MS / 1000}
           color="currentColor"
