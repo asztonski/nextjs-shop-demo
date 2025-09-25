@@ -6,6 +6,7 @@
   --foreground: #ffffff;
   --accent: #a259ff;
   --celeste: #cccccc;
+  --celeste-dark: #858584;
 }
 
 @theme inline {
@@ -14,6 +15,7 @@
   --color-foreground: var(--foreground);
   --color-accent: var(--accent);
   --color-celeste: var(--celeste);
+  --color-celeste-dark: var(--celeste-dark);
 
   --font-sans: var(--font-work-sans);
   --font-mono: var(--font-space-mono);
