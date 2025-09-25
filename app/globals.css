@@ -5,6 +5,7 @@
   --background-muted: #3b3b3b;
   --foreground: #ffffff;
   --accent: #a259ff;
+  --celeste: #cccccc;
 }
 
 @theme inline {
