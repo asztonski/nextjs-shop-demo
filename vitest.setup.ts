@@ -11,10 +11,10 @@ import { vi } from "vitest";
 vi.mock("next/font/google", () => {
   return {
     __esModule: true,
-    Work_Sans: (opts?: any) => ({
+    Work_Sans: (opts?: Record<string, unknown>) => ({
       variable: opts?.variable ?? "--font-work-sans",
     }),
-    Space_Mono: (opts?: any) => ({
+    Space_Mono: (opts?: Record<string, unknown>) => ({
       variable: opts?.variable ?? "--font-space-mono",
     }),
     // add other font exports you use, e.g. Inter, Geist, etc.
