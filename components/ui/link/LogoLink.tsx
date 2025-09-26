@@ -3,11 +3,12 @@ import Image from "next/image";
 
 type LogoLinkProps = {
   fullyVisible?: boolean;
+  className?: string;
 };
 
-export const LogoLink = ({ fullyVisible }: LogoLinkProps) => {
+export const LogoLink = ({ fullyVisible, className }: LogoLinkProps) => {
   return (
-    <Link href="/" className="flex items-center gap-3 z-10">
+    <Link href="/" className={`flex items-center gap-3 ${className}`}>
       <Image
         src="/logos/header-logo.svg"
         alt=""
