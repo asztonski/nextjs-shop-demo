@@ -66,7 +66,7 @@ export const Header = () => {
   const menuId = "primary-nav";
 
   return (
-    <header className="w-full fixed top-0 left-0 flex justify-between items-center py-5 px-12">
+    <header className="w-full fixed top-0 left-0 flex justify-between items-center py-5 px-12 z-10">
       <div
         className={`absolute w-full bg-background/85 lg:blur-xl inset-0 ease-linear h-screen transition-transform duration-[${ANIM_MS}ms] ${
           isOpen
@@ -75,10 +75,10 @@ export const Header = () => {
         }`}
       />
 
-      <LogoLink />
+      <LogoLink className="z-10" />
       <NavList id={menuId} className="hidden lg:flex z-10" />
 
-      <div className="flex z-10 lg:hidden">
+      <div className="flex lg:hidden z-10">
         <Hamburger
           toggled={isOpen}
           toggle={setIsOpen}
