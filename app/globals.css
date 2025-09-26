@@ -43,3 +43,7 @@ body {
 .tap {
   @apply cursor-pointer transition ease-in-out duration-500 hover:scale-95;
 }
+
+.svg-hover {
+  @apply text-celeste-dark hover:text-accent transition ease-in-out duration-75 cursor-pointer;
+}
