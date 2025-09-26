@@ -1,10 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
 import Image from "next/image";
 import { Sling as Hamburger } from "hamburger-react";
 import { NavLink, ButtonLink } from "../link/Link";
+import { LogoLink } from "../link/LogoLink";
 
 const navLinks = [
   { href: "/marketplace", label: "Marketplace" },
@@ -66,7 +66,7 @@ export const Header = () => {
   const menuId = "primary-nav";
 
   return (
-    <header className="w-full fixed top-0 left-0 flex justify-between items-center py-5 px-12">
+    <header className="w-full fixed top-0 left-0 flex justify-between items-center py-5 px-12 z-10">
       <div
         className={`absolute w-full bg-background/85 lg:blur-xl inset-0 ease-linear h-screen transition-transform duration-[${ANIM_MS}ms] ${
           isOpen
@@ -75,27 +75,10 @@ export const Header = () => {
         }`}
       />
 
-      <Link href="/" className="flex items-center gap-3 z-10">
-        <Image
-          src="/logos/header-logo.svg"
-          alt=""
-          aria-hidden
-          className="h-8 w-auto"
-          width={32}
-          height={32}
-        />
-        <Image
-          src="/logos/header-text-logo.svg"
-          alt="Next Shop"
-          className="h-5 w-auto hidden xs:block"
-          width={72}
-          height={20}
-        />
-      </Link>
-
+      <LogoLink className="z-10" />
       <NavList id={menuId} className="hidden lg:flex z-10" />
 
-      <div className="flex z-10 lg:hidden">
+      <div className="flex lg:hidden z-10">
         <Hamburger
           toggled={isOpen}
           toggle={setIsOpen}

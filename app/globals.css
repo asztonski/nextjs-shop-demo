@@ -22,9 +22,12 @@
 
   --text-box-title: 1.375rem;
 
-  --text-box-title: 1.375rem;
+  /* spacing */
+  --spacing-15: 3.75rem;
+  --spacing-105: 26.25rem; /* 420px */
 
-  --breakpoint-xs: 480px;
+  /* container token for lg+ */
+  --container-compact: 70rem; /* 1120px */
 }
 
 @media (prefers-color-scheme: dark) {
@@ -38,8 +41,24 @@ body {
   @apply bg-background text-foreground font-work-sans;
 }
 
+/* Custom utilities */
+
+@utility container-compact {
+  @apply w-full mx-auto;
+  /* < lg */
+  max-width: 21rem; /* 336px */
+  /* ≥ lg (64rem = 1024px) */
+  @media (width >= 64rem) {
+    max-width: var(--container-compact); /* 70rem = 1120px */
+  }
+}
+
 /* Custom classes */
 
 .tap {
   @apply cursor-pointer transition ease-in-out duration-500 hover:scale-95;
+}
+
+.svg-hover {
+  @apply text-celeste-dark hover:text-accent transition ease-in-out duration-75 cursor-pointer;
 }

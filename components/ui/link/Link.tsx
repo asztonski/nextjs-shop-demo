@@ -10,7 +10,7 @@ export const NavLink = ({
   className?: string;
 }>) => {
   return (
-    <Link href={href} className={`font-semibold ${className}`}>
+    <Link href={href} className={`${className}`}>
       {children}
     </Link>
   );
