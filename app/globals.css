@@ -28,6 +28,9 @@
 
   /* container token for lg+ */
   --container-compact: 70rem; /* 1120px */
+
+  /* breakpoints */
+  --breakpoint-xs: 480px;
 }
 
 @media (prefers-color-scheme: dark) {
