@@ -20,7 +20,7 @@ export const LogoLink = ({ fullyVisible, className }: LogoLinkProps) => {
       <Image
         src="/logos/header-text-logo.svg"
         alt="Next Shop"
-        className={`h-5 w-auto ${fullyVisible ? "" : "hidden xs:block"}`}
+        className={`h-5 w-auto ${fullyVisible ? "" : "hidden sm:block"}`}
         width={72}
         height={20}
       />
