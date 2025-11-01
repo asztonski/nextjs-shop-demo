@@ -4,6 +4,7 @@
   --background: #2b2b2b;
   --background-muted: #3b3b3b;
   --foreground: #ffffff;
+  --foreground-muted: #ffffffd1;
   --accent: #a259ff;
   --celeste: #cccccc;
   --celeste-dark: #858584;
@@ -104,11 +105,11 @@ body {
   animation: reflectionMove 18s ease-in-out infinite forwards;
   background: var(--background-muted);
   background: linear-gradient(
-    90deg,
+    45deg,
     var(--background-muted) 0%,
-    var(--background-muted) 25%,
-    var(--foreground) 50%,
-    var(--background-muted) 75%,
+    var(--background-muted) 35%,
+    var(--foreground-muted) 50%,
+    var(--background-muted) 65%,
     var(--background-muted) 100%
   );
 }
