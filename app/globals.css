@@ -33,6 +33,9 @@
 
   /* container token for lg+ */
   --container-compact: 68rem; /* 1088px */
+
+  /* custom breakpoints */
+  --breakpoint-xs: 20rem; /* 320px */
 }
 
 @media (prefers-color-scheme: dark) {
@@ -49,15 +52,20 @@ body {
 /* Custom utilities */
 
 @utility container-compact {
-  @apply w-full mx-auto px-4;
-  /* < lg */
-  max-width: 30rem; /* 336px */
+  @apply w-full mx-auto px-5;
+  /* xs: < 40rem (640px) */
+  max-width: 25rem; /* 400px */
+  /* ≥ sm (40rem = 640px) */
   @media (width >= 40rem) {
-    max-width: 50rem; /* 640px */
+    max-width: 36rem; /* 576px */
+  }
+  /* ≥ md (48rem = 768px) */
+  @media (width >= 48rem) {
+    max-width: 44rem; /* 704px */
   }
   /* ≥ lg (64rem = 1024px) */
   @media (width >= 64rem) {
-    max-width: var(--container-compact); /* 70rem = 1120px */
+    max-width: var(--container-compact); /* 68rem = 1088px */
   }
 }
 
