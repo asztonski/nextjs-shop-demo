@@ -22,11 +22,6 @@ const HeroCard = async ({ className }: { className?: string }) => {
       <div className="bg-background-muted relative overflow-hidden rounded-2xl p-4 flex flex-col gap-4 w-full md:w-3/4 h-full sm:h-4/5 mx-auto origin-center transform-gpu will-change-transform transform-3d wobble">
         {/* --- Main NFT image --- */}
         <div className="w-full h-full rounded-lg overflow-hidden bg-gray-200 relative">
-          {/* Fallback background skeleton (SSR-only) */}
-          <div className="absolute inset-0 flex items-center justify-center animate-pulse bg-gray-200">
-            <div className="w-24 h-6 rounded bg-gray-300" />
-          </div>
-
           <Image
             src={data.nftUrl}
             alt={`Generated art`}
