@@ -20,7 +20,7 @@ export const TextField = ({
     <div
       className={`rounded-full bg-foreground relative text-background w-full p-2 ${className}`}
     >
-      <div className="absolute left-0 top-0 h-full w-full flex items-center gap-3 pl-5">
+      <div className="lg:absolute left-0 top-0 h-full w-full flex items-center gap-3 pl-5">
         {icon && (
           <Image
             src={icon}

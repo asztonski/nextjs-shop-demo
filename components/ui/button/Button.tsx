@@ -14,7 +14,7 @@ export const Button = ({
   return (
     <button
       onClick={onClick}
-      className={`px-8 rounded-[20px] bg-accent flex items-center gap-3 font-semibold capitalize tap ${className}`}
+      className={`px-8 rounded-[20px] w-max bg-accent flex items-center justify-center gap-3 font-semibold capitalize tap ${className}`}
     >
       {icon && <Image src={icon} width={20} height={20} alt={`${icon} icon`} />}
       {children}

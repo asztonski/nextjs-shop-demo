@@ -53,8 +53,8 @@ export const Footer = () => {
   );
 
   return (
-    <footer className="w-full bg-background-muted py-8 px-4">
-      <div className="container-compact flex flex-col mx-auto p-3">
+    <footer className="w-full bg-background-muted py-8">
+      <div className="container-compact flex flex-col mx-auto py-3">
         <div className="flex flex-col lg:flex-row w-full justify-between gap-3 m-auto lg:px-9 pb-6">
           <BoxContainer>
             <LogoLink fullyVisible />

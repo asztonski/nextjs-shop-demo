@@ -1,13 +1,9 @@
-import React from "react";
-import { Header } from "@/components/ui/header/Header";
-import { Footer } from "@/components/ui/footer/Footer";
+import { Hero } from "@/components/pages/hero/Hero";
 
-export default function Home() {
+export default function HomePage() {
   return (
-    <div className="flex flex-col min-h-screen">
-      <Header />
-      <main className="flex-grow"></main>
-      <Footer />
+    <div className="flex flex-col">
+      <Hero />
     </div>
   );
 }
