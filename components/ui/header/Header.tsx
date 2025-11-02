@@ -66,7 +66,7 @@ export const Header = () => {
   const menuId = "primary-nav";
 
   return (
-    <header className="w-full sticky top-0 left-0 flex justify-between items-center py-5 px-12 z-10">
+    <header className="w-full sticky top-0 left-0 flex justify-between items-center py-5 px-5 lg:px-12 z-10">
       <div
         className={`absolute w-full bg-background/85 lg:blur-xl inset-0 ease-linear h-screen transition-transform duration-[${ANIM_MS}ms] ${
           isOpen
