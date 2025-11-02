@@ -17,7 +17,7 @@ const HeroCard = async ({ className }: { className?: string }) => {
   return (
     <Link
       href="/"
-      className={`flex justify-center items-center h-150 perspective-midrange ${className}`}
+      className={`flex justify-center items-center max-w-56 md:max-w-none mx-auto h-72 sm:h-96 md:h-150 perspective-midrange ${className}`}
     >
       <div className="bg-background-muted relative overflow-hidden rounded-2xl p-4 flex flex-col gap-4 w-full md:w-3/4 h-full sm:h-4/5 mx-auto origin-center transform-gpu will-change-transform transform-3d wobble">
         {/* --- Main NFT image --- */}
@@ -70,12 +70,12 @@ const HeroCard = async ({ className }: { className?: string }) => {
 
 export const Hero = () => {
   return (
-    <div className="grid md:grid-cols-2 gap-x-2 gap-y-8 md:gap-y-0">
+    <div className="grid sm:grid-cols-2 gap-x-2 gap-y-8 sm:gap-y-0">
       <div className="gap-2 md:gap-7 flex flex-col h-max">
-        <h1 className="text-3xl sm:text-5xl lg:text-7xl font-semibold">
+        <h1 className="text-3xl md:text-5xl lg:text-7xl font-semibold">
           Discover Digital Art & Collect Nfts
         </h1>
-        <h2 className="text-base sm:text-2xl">
+        <h2 className="text-base md:text-2xl">
           Nft Marketplace Ui Created With Anima For Figma. Collect, Buy And Sell
           Art From More Than 20k Nft Artists.
         </h2>
@@ -85,11 +85,13 @@ export const Hero = () => {
         <Button className="py-4 px-10 !w-full md:!w-max" icon={RocketIcon}>
           Get Started
         </Button>
-        <div className="flex w-full justify-between gap-1">
+        <div className="flex w-full justify-between px-2 gap-1">
           {charts.map(({ value, label }) => (
             <div key={label}>
-              <h3 className="text-3xl font-bold font-space-mono">{value}</h3>
-              <p className="text-2xl capitalize mt-1">{label}</p>
+              <h3 className="text-xl md:text-3xl font-bold font-space-mono">
+                {value}
+              </h3>
+              <p className="md:text-2xl capitalize mt-1">{label}</p>
             </div>
           ))}
         </div>
