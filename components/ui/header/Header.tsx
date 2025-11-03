@@ -46,7 +46,7 @@ const NavList = ({ id, className = "", vertical = false }: NavListProps) => {
           </NavItem>
         ))}
       </ul>
-      <ButtonLink href="/signup">
+      <ButtonLink href="/sign-in">
         <Image
           className="w-auto"
           src="/buttons/user.svg"
@@ -54,7 +54,7 @@ const NavList = ({ id, className = "", vertical = false }: NavListProps) => {
           width={16}
           height={16}
         />
-        <span>Sign up</span>
+        <span>Sign in</span>
       </ButtonLink>
     </nav>
   );
