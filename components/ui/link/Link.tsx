@@ -36,7 +36,7 @@ export const ButtonLink = ({
       className={`py-4 px-8 rounded-[20px] bg-accent flex items-center gap-4 font-semibold capitalize tap ${className}`}
     >
       {icon && (
-        <Image src={icon} alt={alt ?? "link icon"} width={16} height={16} />
+        <Image src={icon} alt={alt ?? "link icon"} width={19} height={19} />
       )}
       {children}
     </Link>

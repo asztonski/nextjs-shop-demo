@@ -5,6 +5,7 @@ import Image from "next/image";
 import { Sling as Hamburger } from "hamburger-react";
 import { NavLink, ButtonLink } from "../link/Link";
 import { LogoLink } from "../link/LogoLink";
+import UserIcon from "@/public/buttons/user.svg";
 
 const navLinks = [
   { href: "/marketplace", label: "Marketplace" },
@@ -46,14 +47,7 @@ const NavList = ({ id, className = "", vertical = false }: NavListProps) => {
           </NavItem>
         ))}
       </ul>
-      <ButtonLink href="/sign-in">
-        <Image
-          className="w-auto"
-          src="/buttons/user.svg"
-          alt="user icon"
-          width={16}
-          height={16}
-        />
+      <ButtonLink href="/sign-in" icon={UserIcon} alt="User icon">
         <span>Sign in</span>
       </ButtonLink>
     </nav>
