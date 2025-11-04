@@ -1,6 +1,3 @@
-"use client";
-import { useState } from "react";
-
 import Image from "next/image";
 
 export const TextField = ({
@@ -8,19 +5,21 @@ export const TextField = ({
   value,
   icon,
   className,
+  onChange,
+  type,
 }: {
   placeholder: string;
   value: string;
   icon?: string;
   className?: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  type?: string;
 }) => {
-  const [inputValue, setInputValue] = useState(value);
-
   return (
     <div
-      className={`rounded-full bg-foreground relative text-background w-full p-2 ${className}`}
+      className={`rounded-full bg-foreground relative text-background w-full p-2 overflow-hidden ${className}`}
     >
-      <div className="lg:absolute left-0 top-0 h-full w-full flex items-center gap-3 pl-5">
+      <div className="lg:absolute bg-inherit left-0 top-0 h-full w-full flex items-center gap-3 pl-7">
         {icon && (
           <Image
             src={icon}
@@ -31,11 +30,11 @@ export const TextField = ({
           />
         )}
         <input
-          type="text"
+          type={type || "text"}
           placeholder={placeholder}
-          value={inputValue}
-          onChange={(e) => setInputValue(e.target.value)}
-          className="p-2"
+          value={value}
+          onChange={onChange}
+          className="p-2 bg-inherit"
         />
       </div>
     </div>
