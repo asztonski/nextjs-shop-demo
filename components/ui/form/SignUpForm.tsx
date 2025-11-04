@@ -20,7 +20,7 @@ export const SignUpForm = () => {
       icon: UserIcon,
     },
     {
-      placeholder: "Email",
+      placeholder: "Email address",
       value: email,
       onChange: (e: React.ChangeEvent<HTMLInputElement>) =>
         setEmail(e.target.value),
@@ -45,7 +45,7 @@ export const SignUpForm = () => {
   ];
 
   return (
-    <form className="flex flex-col gap-4 mt-6 w-3/4" action="">
+    <form className="flex flex-col gap-4 mt-8 lg:mt-10 lg:w-3/4" action="">
       {FORM_ITEMS.map(({ placeholder, value, onChange, icon, type }) => (
         <TextField
           key={placeholder}
@@ -54,7 +54,8 @@ export const SignUpForm = () => {
           value={value}
           onChange={onChange}
           type={type}
-          className="h-11"
+          className="h-11 lg:h-12"
+          inputClassName="w-2/3 lg:w-9/10"
         />
       ))}
       <Button className="py-3 mt-2 !w-full" type="submit">
