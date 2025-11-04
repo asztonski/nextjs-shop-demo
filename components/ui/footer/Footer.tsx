@@ -43,7 +43,7 @@ export const Footer = () => {
   );
 
   const BoxTitle = ({ title }: { title: string }) => (
-    <h3 className="text-box-title font-semibold font-space-mono">{title}</h3>
+    <h3 className="text-box-subtitle font-semibold font-space-mono">{title}</h3>
   );
 
   const BoxContent = ({ children }: { children: React.ReactNode }) => (
