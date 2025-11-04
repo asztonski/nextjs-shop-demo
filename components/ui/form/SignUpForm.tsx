@@ -2,8 +2,8 @@
 import { useState } from "react";
 import { TextField } from "../input/TextField";
 import { Button } from "../button/Button";
-import UserIcon from "@/public/buttons/user.svg";
-import EnvelopeIcon from "@/public/buttons/envelope.svg";
+import UserIcon from "@/public/buttons/user-dark.svg";
+import EnvelopeIcon from "@/public/buttons/envelope-dark.svg";
 import LockIcon from "@/public/buttons/lock.svg";
 
 export const SignUpForm = () => {
