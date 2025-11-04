@@ -33,7 +33,7 @@ export default function RootLayout({
       >
         <div className="flex flex-col min-h-screen">
           <Header />
-          <main className="flex-grow container-compact mx-auto py-8 px-3">
+          <main className="flex-grow flex flex-col justify-end">
             {children}
           </main>
           <Footer />
