@@ -41,8 +41,8 @@ export const TextField = ({
   return (
     <div className="relative">
       <div
-        className={`rounded-full bg-foreground relative text-background w-full p-2 overflow-hidden ${
-          isInvalid ? "border-2 border-red-500" : ""
+        className={`rounded-full bg-foreground relative text-background w-full p-2 overflow-hidden border-3 ${
+          isInvalid ? "border-red-500" : ""
         } ${className}`}
       >
         <div className="lg:absolute bg-inherit left-0 top-0 h-full w-full flex items-center gap-3 pl-11">
@@ -67,13 +67,13 @@ export const TextField = ({
         </div>
       </div>
       {isInvalid && (
-        <div
-          className={`w-72 bg-foreground absolute left-0 right-0 m-auto -bottom-17 z-10 transition-opacity duration-200 ease-in-out border-red-500 border p-2 rounded ${
+        <p
+          className={`absolute text-red-500 text-xs left-3 top-[110%] z-10 transition-opacity duration-200 ease-in-out ${
             errorVisible ? "opacity-100" : "opacity-0"
           }`}
         >
-          <p className="text-sm text-black">{errorMessage}</p>
-        </div>
+          {errorMessage}
+        </p>
       )}
     </div>
   );
