@@ -198,7 +198,7 @@ export const SignUpForm = () => {
         className="py-3 mt-2 !w-full"
         type="submit"
       >
-        {isSubmitting ? "Tworzenie konta..." : "Create Account"}
+        {isSubmitting ? "Creating Account..." : "Create Account"}
       </Button>
     </form>
   );
