@@ -16,7 +16,7 @@ export const registerUser = async ({
 }): Promise<void> => {
   const REGISTER_USER_URL = `${process.env.NEXT_PUBLIC_API_URL}${process.env.NEXT_PUBLIC_REGISTER_USER_ENDPOINT}`;
 
-  console.log("Register URL:", REGISTER_USER_URL);
+  // console.log("Register URL:", REGISTER_USER_URL);
 
   // Przygotowanie danych do wysłania
   const requestData = {
@@ -25,8 +25,8 @@ export const registerUser = async ({
     password: password,
   };
 
-  console.log("Wysyłanie danych:", requestData);
-  console.log("URL:", REGISTER_USER_URL);
+  // console.log("Wysyłanie danych:", requestData);
+  // console.log("URL:", REGISTER_USER_URL);
 
   const response = await fetch(REGISTER_USER_URL, {
     method: "POST",
@@ -36,8 +36,8 @@ export const registerUser = async ({
     body: JSON.stringify(requestData),
   });
 
-  console.log("Response status:", response.status);
-  console.log("Response headers:", response.headers);
+  // console.log("Response status:", response.status);
+  // console.log("Response headers:", response.headers);
 
   if (!response.ok) {
     // Błąd odpowiedzi serwera
