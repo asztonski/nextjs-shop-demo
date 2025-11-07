@@ -126,6 +126,8 @@ export const SignUpForm = () => {
     isPasswordValid &&
     isConfirmPasswordValid;
 
+  const isFormFilled = username && email && password && confirmPassword;
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -194,7 +196,7 @@ export const SignUpForm = () => {
         )
       )}
       <Button
-        isDisabled={!isFormValid || isSubmitting}
+        isDisabled={!isFormValid || isSubmitting || !isFormFilled}
         className="py-3 mt-2 !w-full"
         type="submit"
       >
