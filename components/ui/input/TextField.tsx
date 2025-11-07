@@ -39,13 +39,17 @@ export const TextField = ({
   }, [isInvalid]);
 
   return (
-    <div className="relative">
+    <div className="relative w-full">
       <div
         className={`rounded-full bg-foreground relative text-background w-full p-2 overflow-hidden border-3 ${
           isInvalid ? "border-red-500" : ""
         } ${className}`}
       >
-        <div className="lg:absolute bg-inherit left-0 top-0 h-full w-full flex items-center gap-3 pl-11">
+        <div
+          className={`lg:absolute bg-inherit left-0 top-0 h-full w-full flex items-center gap-3 ${
+            icon ? "pl-11" : "pl-4"
+          }`}
+        >
           {icon && (
             <Image
               src={icon}
