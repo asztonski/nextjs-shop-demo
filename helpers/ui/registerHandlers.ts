@@ -1,5 +1,6 @@
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import { registerUser } from "../auth/register";
+import { useAuthStore } from "@/app/store/auth";
 
 // Definicje interfejsów dla danych formularza
 export interface RegisterFormData {
@@ -72,7 +73,8 @@ export const handleRegisterSubmit = async ({
 
     try {
       await registerUser({ username, email, password });
-      // Sukces - przekieruj do strony głównej
+      // Sukces - ustaw użytkownika jako zalogowanego i przekieruj do strony głównej
+      useAuthStore.getState().setIsUserLoggedIn(true);
       router.push("/");
     } catch (error) {
       setSubmitError(
