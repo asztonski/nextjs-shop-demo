@@ -5,6 +5,7 @@ import { Sling as Hamburger } from "hamburger-react";
 import { NavLink, ButtonLink } from "../link/Link";
 import { LogoLink } from "../link/LogoLink";
 import UserIcon from "@/public/buttons/user.svg";
+import { useAuthStore } from "@/app/store/auth";
 
 const navLinks = [
   { href: "/marketplace", label: "Marketplace" },
@@ -26,8 +27,16 @@ type NavListProps = {
   id?: string;
   className?: string;
   vertical?: boolean;
+  isUserLoggedIn?: boolean;
 };
-const NavList = ({ id, className = "", vertical = false }: NavListProps) => {
+const NavList = ({
+  id,
+  className = "",
+  vertical = false,
+  isUserLoggedIn,
+}: NavListProps) => {
+  console.log("NavList - isUserLoggedIn:", isUserLoggedIn);
+
   return (
     <nav
       id={id}
@@ -46,9 +55,15 @@ const NavList = ({ id, className = "", vertical = false }: NavListProps) => {
           </NavItem>
         ))}
       </ul>
-      <ButtonLink href="/sign-in" icon={UserIcon} alt="User icon">
-        <span>Sign in</span>
-      </ButtonLink>
+      {isUserLoggedIn ? (
+        <ButtonLink href="/profile" icon={UserIcon} alt="User icon">
+          <span>Profile</span>
+        </ButtonLink>
+      ) : (
+        <ButtonLink href="/sign-in" icon={UserIcon} alt="User icon">
+          <span>Sign in</span>
+        </ButtonLink>
+      )}
     </nav>
   );
 };
@@ -57,6 +72,7 @@ export const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const ANIM_MS = 200;
   const menuId = "primary-nav";
+  const isUserLoggedIn = useAuthStore((state) => state.isUserLoggedIn);
 
   return (
     <header className="w-full sticky top-0 left-0 flex justify-between items-center py-5 px-5 lg:px-12 z-10">
@@ -69,7 +85,11 @@ export const Header = () => {
       />
 
       <LogoLink className="z-10" />
-      <NavList id={menuId} className="hidden lg:flex z-10" />
+      <NavList
+        id={menuId}
+        className="hidden lg:flex z-10"
+        isUserLoggedIn={isUserLoggedIn}
+      />
 
       <div className="flex lg:hidden z-10">
         <Hamburger
@@ -98,7 +118,7 @@ export const Header = () => {
         aria-hidden={!isOpen}
       >
         <div className="px-12 py-6 w-max m-auto">
-          <NavList id={menuId} vertical />
+          <NavList isUserLoggedIn={isUserLoggedIn} id={menuId} vertical />
         </div>
       </div>
     </header>
