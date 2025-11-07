@@ -176,7 +176,6 @@ export const SignUpForm = () => {
           errorMessage,
           isValid,
           onBlur,
-          onFocus,
         }) => (
           <TextField
             key={placeholder}
@@ -191,7 +190,6 @@ export const SignUpForm = () => {
             isInvalid={!isValid}
             errorMessage={errorMessage}
             onBlur={onBlur}
-            onFocus={onFocus}
           />
         )
       )}
