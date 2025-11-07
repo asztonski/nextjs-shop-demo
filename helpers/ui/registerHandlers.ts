@@ -52,8 +52,6 @@ export const handleRegisterSubmit = async ({
     handleConfirmPasswordValidation,
   } = validationHandlers;
 
-  setSubmitError("");
-
   // Walidacja wszystkich pól przed wysłaniem
   const isUsernameValidNow = handleUsernameValidation(username);
   const isEmailValidNow = handleEmailValidation(email);
@@ -74,8 +72,8 @@ export const handleRegisterSubmit = async ({
 
     try {
       await registerUser({ username, email, password });
-      // Sukces - przekieruj do strony logowania
-      router.push("/sign-in");
+      // Sukces - przekieruj do strony głównej
+      router.push("/");
     } catch (error) {
       setSubmitError(
         error instanceof Error ? error.message : "Nieznany błąd rejestracji"
