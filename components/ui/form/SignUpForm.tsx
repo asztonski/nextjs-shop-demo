@@ -155,53 +155,49 @@ export const SignUpForm = () => {
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="flex flex-col gap-11 mt-8 lg:mt-10 lg:w-3/4"
-    >
-      {/* Wyświetl błąd jeśli wystąpił */}
-      {submitError && (
-        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative">
-          <strong className="font-bold">Błąd: </strong>
-          <span className="block sm:inline">{submitError}</span>
-        </div>
-      )}
-
-      {FORM_ITEMS.map(
-        ({
-          placeholder,
-          name,
-          value,
-          onChange,
-          icon,
-          type,
-          errorMessage,
-          isValid,
-          onBlur,
-        }) => (
-          <TextField
-            key={placeholder}
-            icon={icon}
-            placeholder={placeholder}
-            name={name}
-            value={value}
-            onChange={onChange}
-            type={type}
-            className="h-11 lg:h-12"
-            inputClassName="w-2/3 lg:w-9/10"
-            isInvalid={!isValid}
-            errorMessage={errorMessage}
-            onBlur={onBlur}
-          />
-        )
-      )}
-      <Button
-        isDisabled={!isFormValid || isSubmitting || !isFormFilled}
-        className="py-3 mt-2 !w-full"
-        type="submit"
+    <div className="lg:w-3/4">
+      <form
+        onSubmit={handleSubmit}
+        className="flex flex-col gap-11 mt-8 lg:mt-10 w-full"
       >
-        {isSubmitting ? "Creating Account..." : "Create Account"}
-      </Button>
-    </form>
+        {FORM_ITEMS.map(
+          ({
+            placeholder,
+            name,
+            value,
+            onChange,
+            icon,
+            type,
+            errorMessage,
+            isValid,
+            onBlur,
+          }) => (
+            <TextField
+              key={placeholder}
+              icon={icon}
+              placeholder={placeholder}
+              name={name}
+              value={value}
+              onChange={onChange}
+              type={type}
+              className="h-11 lg:h-12"
+              inputClassName="w-2/3 lg:w-9/10"
+              isInvalid={!isValid}
+              errorMessage={errorMessage}
+              onBlur={onBlur}
+            />
+          )
+        )}
+        <Button
+          isDisabled={!isFormValid || isSubmitting || !isFormFilled}
+          className="py-3 mt-2 !w-full"
+          type="submit"
+        >
+          {isSubmitting ? "Creating Account..." : "Create Account"}
+        </Button>
+        {/* Wyświetl błąd jeśli wystąpił */}
+      </form>
+      {submitError && <p className="text-red-500 mt-2">{submitError}</p>}
+    </div>
   );
 };
