@@ -108,7 +108,6 @@ export const Footer = () => {
               </p>
               <InputGroup
                 buttonText="Subscribe"
-                buttonIcon="/buttons/envelope.svg"
                 textFieldPlaceholder="Enter your email here"
                 textFieldValue=""
               />
