@@ -74,8 +74,6 @@ export const handleRegisterSubmit = async ({
 
     try {
       await registerUser({ username, email, password });
-      // Sukces - ustaw użytkownika jako zalogowanego i przekieruj do strony logowania
-      useAuthStore.getState().setIsUserLoggedIn(true);
       router.push("/sign-in");
     } catch (error) {
       setSubmitError(
