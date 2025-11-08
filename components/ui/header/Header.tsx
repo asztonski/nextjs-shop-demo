@@ -4,8 +4,11 @@ import { useState } from "react";
 import { Sling as Hamburger } from "hamburger-react";
 import { NavLink, ButtonLink } from "../link/Link";
 import { LogoLink } from "../link/LogoLink";
+import { Button } from "../button/Button";
 import UserIcon from "@/public/buttons/user.svg";
 import { useAuthStore } from "@/app/store/auth";
+import LogoutIcon from "@/public/buttons/logout.svg";
+import { useRouter } from "next/navigation";
 
 const navLinks = [
   { href: "/marketplace", label: "Marketplace" },
@@ -37,6 +40,13 @@ const NavList = ({
 }: NavListProps) => {
   console.log("NavList - isUserLoggedIn:", isUserLoggedIn);
 
+  const router = useRouter();
+
+  const handleLogout = () => {
+    useAuthStore.getState().logout();
+    router.push("/sign-in");
+  };
+
   return (
     <nav
       id={id}
@@ -54,16 +64,25 @@ const NavList = ({
             {label}
           </NavItem>
         ))}
+        {isUserLoggedIn ? (
+          <>
+            <NavItem href="/profile">
+              <span>Profile</span>
+            </NavItem>
+            <Button
+              className="py-4 px-8 rounded-[20px] bg-accent flex items-center gap-4 font-semibold capitalize tap"
+              onClick={handleLogout}
+              icon={LogoutIcon}
+            >
+              <span>Sign out</span>
+            </Button>
+          </>
+        ) : (
+          <ButtonLink href="/sign-in" icon={UserIcon} alt="User icon">
+            <span>Sign in</span>
+          </ButtonLink>
+        )}
       </ul>
-      {isUserLoggedIn ? (
-        <ButtonLink href="/profile" icon={UserIcon} alt="User icon">
-          <span>Profile</span>
-        </ButtonLink>
-      ) : (
-        <ButtonLink href="/sign-in" icon={UserIcon} alt="User icon">
-          <span>Sign in</span>
-        </ButtonLink>
-      )}
     </nav>
   );
 };
@@ -106,6 +125,7 @@ export const Header = () => {
         />
       </div>
 
+      {/* Mobile Overlay */}
       <div
         className={[
           "lg:hidden fixed inset-0 flex items-center justify-center",
