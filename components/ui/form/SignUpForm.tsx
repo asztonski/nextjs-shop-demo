@@ -189,7 +189,7 @@ export const SignUpForm = () => {
         )}
         <Button
           isDisabled={!isFormValid || isSubmitting || !isFormFilled}
-          className="py-3 mt-2 !w-full"
+          className="py-3 !w-full"
           type="submit"
         >
           {isSubmitting ? "Creating Account..." : "Create Account"}

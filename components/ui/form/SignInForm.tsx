@@ -89,7 +89,7 @@ export const SignInForm = () => {
         )}
         <Button
           isDisabled={isLoggingIn || !isFormFilled}
-          className="py-3 mt-2 !w-full"
+          className="py-3 !w-full"
           type="submit"
         >
           {isLoggingIn ? "Logging In..." : "Log In"}
