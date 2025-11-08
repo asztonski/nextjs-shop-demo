@@ -2,7 +2,6 @@ import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.share
 import { registerUser } from "../auth/register";
 import { useAuthStore } from "@/app/store/auth";
 import { loginUser } from "../auth/login";
-
 // Definicje interfejsów dla danych formularza
 export interface RegisterFormData {
   username: string;
@@ -110,10 +109,23 @@ export const handleLoginSubmit = async ({
   setIsSubmitting(true);
 
   try {
-    await loginUser(email, password);
-    // Sukces - ustaw użytkownika jako zalogowanego i przekieruj do strony głównej
-    useAuthStore.getState().setIsUserLoggedIn(true);
-    router.push("/");
+    const response = await loginUser(email, password);
+    const token = response.token;
+
+    if (token) {
+      // Zaktualizuj stan logowania użytkownika
+      useAuthStore.getState().login(token);
+
+      // Sprawdź flagę AFTER ustawienia tokenu
+      const isUserLoggedIn = useAuthStore.getState().isUserLoggedIn;
+      console.log("handleLoginSubmit - isUserLoggedIn:", isUserLoggedIn);
+
+      if (isUserLoggedIn) {
+        router.push("/");
+      }
+    } else {
+      throw new Error("Brak tokenu w odpowiedzi z serwera");
+    }
   } catch (error) {
     setSubmitError(
       error instanceof Error ? error.message : "Nieznany błąd logowania"
