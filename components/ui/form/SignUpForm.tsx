@@ -16,8 +16,7 @@ import {
 import {
   handleRegisterSubmit,
   RegisterFormData,
-} from "@/helpers/ui/registerHandlers";
-import { on } from "events";
+} from "@/helpers/ui/formHandlers";
 
 export const SignUpForm = () => {
   const router = useRouter();
