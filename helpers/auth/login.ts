@@ -1,5 +1,3 @@
-// helpers/auth/login.ts
-
 // Funkcja do logowania użytkownika
 export const loginUser = async (email: string, password: string) => {
   try {
