@@ -9,6 +9,7 @@ import UserIcon from "@/public/buttons/user.svg";
 import { useAuthStore } from "@/app/store/auth";
 import LogoutIcon from "@/public/buttons/logout.svg";
 import { useRouter } from "next/navigation";
+import { logoutUser } from "@/helpers/auth/logout";
 
 const navLinks = [
   { href: "/marketplace", label: "Marketplace" },
@@ -41,10 +42,21 @@ const NavList = ({
   console.log("NavList - isUserLoggedIn:", isUserLoggedIn);
 
   const router = useRouter();
+  const { logout, token } = useAuthStore();
 
-  const handleLogout = () => {
-    useAuthStore.getState().logout();
-    router.push("/sign-in");
+  const handleLogout = async () => {
+    try {
+      if (token) {
+        await logoutUser(token);
+      }
+      logout();
+      router.push("/sign-in");
+    } catch (error) {
+      console.error("Logout failed:", error);
+      // Mimo błędu API, wyloguj lokalnie dla lepszego UX
+      logout();
+      router.push("/sign-in");
+    }
   };
 
   return (
