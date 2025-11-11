@@ -4,16 +4,19 @@ import { persist } from "zustand/middleware";
 interface AuthState {
   token: string | null;
   isUserLoggedIn: boolean;
+  isHydrated: boolean;
   setToken: (token: string | null) => void;
   login: (token: string) => void;
   logout: () => void;
+  setHydrated: () => void;
 }
 
 export const useAuthStore = create<AuthState>()(
   persist(
-    (set, get) => ({
+    (set) => ({
       token: null,
       isUserLoggedIn: false,
+      isHydrated: false,
 
       setToken: (token) =>
         set({
@@ -33,6 +36,8 @@ export const useAuthStore = create<AuthState>()(
           isUserLoggedIn: false,
         });
       },
+
+      setHydrated: () => set({ isHydrated: true }),
     }),
     {
       name: "auth-storage",
@@ -41,6 +46,7 @@ export const useAuthStore = create<AuthState>()(
         // Po załadowaniu z localStorage, ustaw isUserLoggedIn na podstawie tokenu
         if (state) {
           state.isUserLoggedIn = state.token !== null;
+          state.setHydrated();
         }
       },
     }
