@@ -103,8 +103,7 @@ export const Footer = () => {
             <BoxContent>
               <p>
                 Get exclusive promotions & updates
-                <br className="hidden lg:block" />
-                straight to your inbox.
+                <br className="hidden lg:block" /> straight to your inbox.
               </p>
               <InputGroup
                 buttonText="Subscribe"
