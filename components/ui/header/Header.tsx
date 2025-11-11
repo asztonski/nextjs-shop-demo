@@ -68,7 +68,7 @@ const NavList = ({
     >
       <ul
         className={`flex items-center ${
-          vertical ? "flex-col items-start gap-6" : "gap-12"
+          vertical ? "flex-col items-start gap-6" : "gap-6 xl:gap-12"
         }`}
       >
         {navLinks.map(({ href, label }) => (
@@ -103,7 +103,9 @@ export const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const ANIM_MS = 200;
   const menuId = "primary-nav";
-  const isUserLoggedIn = useAuthStore((state) => state.isUserLoggedIn);
+
+  const { isUserLoggedIn, isHydrated } = useAuthStore();
+  const isLoading = !isHydrated;
 
   return (
     <header className="w-full sticky top-0 left-0 flex justify-between items-center py-5 px-5 lg:px-12 z-10">
@@ -116,11 +118,22 @@ export const Header = () => {
       />
 
       <LogoLink className="z-10" />
-      <NavList
-        id={menuId}
-        className="hidden lg:flex z-10"
-        isUserLoggedIn={isUserLoggedIn}
-      />
+      {isLoading ? (
+        <nav id={menuId} className="hidden lg:flex z-10 items-center">
+          <div className="flex items-center gap-12">
+            <div
+              className="h-8 w-8 border-4 border-gray-200 border-t-accent rounded-full animate-spin"
+              aria-hidden="true"
+            />
+          </div>
+        </nav>
+      ) : (
+        <NavList
+          id={menuId}
+          className="hidden lg:flex z-10"
+          isUserLoggedIn={isUserLoggedIn}
+        />
+      )}
 
       <div className="flex lg:hidden z-10">
         <Hamburger
