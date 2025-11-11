@@ -134,7 +134,7 @@ const AuthButtons = ({ isUserLoggedIn }: { isUserLoggedIn: boolean }) => {
             onClick={handleLogout}
             icon={LogoutIcon}
           >
-            <span className="hidden md:inline">Sign out</span>
+            <span className="hidden lg:inline">Sign out</span>
           </Button>
         </>
       ) : (
@@ -144,7 +144,7 @@ const AuthButtons = ({ isUserLoggedIn }: { isUserLoggedIn: boolean }) => {
           alt="User icon"
           className="!p-2 rounded-[12px] text-sm"
         >
-          <span className="hidden md:inline">Sign in</span>
+          <span className="hidden lg:inline">Sign in</span>
         </ButtonLink>
       )}
     </div>
