@@ -32,12 +32,14 @@ type NavListProps = {
   className?: string;
   vertical?: boolean;
   isUserLoggedIn?: boolean;
+  showAuthButtons?: boolean;
 };
 const NavList = ({
   id,
   className = "",
   vertical = false,
   isUserLoggedIn,
+  showAuthButtons = true,
 }: NavListProps) => {
   console.log("NavList - isUserLoggedIn:", isUserLoggedIn);
 
@@ -76,11 +78,13 @@ const NavList = ({
             {label}
           </NavItem>
         ))}
-        {isUserLoggedIn ? (
-          <>
-            <NavItem href="/profile">
-              <span>Profile</span>
-            </NavItem>
+        {showAuthButtons && isUserLoggedIn && (
+          <NavItem href="/profile">
+            <span>Profile</span>
+          </NavItem>
+        )}
+        {showAuthButtons &&
+          (isUserLoggedIn ? (
             <Button
               className="py-4 px-8 rounded-[20px] bg-accent flex items-center gap-4 font-semibold capitalize tap"
               onClick={handleLogout}
@@ -88,14 +92,62 @@ const NavList = ({
             >
               <span>Sign out</span>
             </Button>
-          </>
-        ) : (
-          <ButtonLink href="/sign-in" icon={UserIcon} alt="User icon">
-            <span>Sign in</span>
-          </ButtonLink>
-        )}
+          ) : (
+            <ButtonLink href="/sign-in" icon={UserIcon} alt="User icon">
+              <span>Sign in</span>
+            </ButtonLink>
+          ))}
       </ul>
     </nav>
+  );
+};
+
+// Separate component for auth buttons that can be used independently
+const AuthButtons = ({ isUserLoggedIn }: { isUserLoggedIn: boolean }) => {
+  const router = useRouter();
+  const { logout, token } = useAuthStore();
+
+  const handleLogout = async () => {
+    try {
+      if (token) {
+        await logoutUser(token);
+      }
+      logout();
+      router.push("/sign-in");
+    } catch (error) {
+      console.error("Logout failed:", error);
+      // Mimo błędu API, wyloguj lokalnie dla lepszego UX
+      logout();
+      router.push("/sign-in");
+    }
+  };
+
+  return (
+    <div className="flex items-center gap-2">
+      {isUserLoggedIn ? (
+        <>
+          <NavLink href="/profile" className="p-2">
+            <span className="text-sm">Profile</span>
+          </NavLink>
+          <Button
+            className="!p-2 rounded-[12px] bg-accent flex items-center gap-2 font-medium text-sm tap"
+            onClick={handleLogout}
+            icon={LogoutIcon}
+          >
+            <span className="hidden md:inline">Sign out</span>
+          </Button>
+        </>
+      ) : (
+        <ButtonLink
+          href="/sign-in"
+          icon={UserIcon}
+          alt="User icon"
+          className="!p-2 rounded-[12px] text-sm"
+        >
+          <span className="hidden md:inline">Sign in</span>
+        </ButtonLink>
+      )}
+    </div>
   );
 };
 
@@ -118,6 +170,7 @@ export const Header = () => {
       />
 
       <LogoLink className="z-10" />
+
       {isLoading ? (
         <nav id={menuId} className="hidden lg:flex z-10 items-center">
           <div className="flex items-center gap-12">
@@ -135,7 +188,9 @@ export const Header = () => {
         />
       )}
 
-      <div className="flex lg:hidden z-10">
+      {/* Mobile auth buttons and hamburger */}
+      <div className="flex lg:hidden items-center gap-3 z-10">
+        {!isLoading && <AuthButtons isUserLoggedIn={isUserLoggedIn} />}
         <Hamburger
           toggled={isOpen}
           toggle={setIsOpen}
@@ -150,7 +205,7 @@ export const Header = () => {
         />
       </div>
 
-      {/* Mobile Overlay */}
+      {/* Mobile Overlay - now without auth buttons */}
       <div
         className={[
           "lg:hidden fixed inset-0 flex items-center justify-center",
@@ -163,7 +218,12 @@ export const Header = () => {
         aria-hidden={!isOpen}
       >
         <div className="px-12 py-6 w-max m-auto">
-          <NavList isUserLoggedIn={isUserLoggedIn} id={menuId} vertical />
+          <NavList
+            isUserLoggedIn={isUserLoggedIn}
+            id={menuId}
+            vertical
+            showAuthButtons={false}
+          />
         </div>
       </div>
     </header>
