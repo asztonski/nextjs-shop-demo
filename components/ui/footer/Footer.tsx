@@ -57,7 +57,7 @@ export const Footer = () => {
       <div className="container-compact flex flex-col mx-auto py-3">
         <div className="flex flex-col lg:flex-row w-full justify-between gap-3 m-auto lg:px-9 pb-6">
           <BoxContainer>
-            <LogoLink fullyVisible />
+            <LogoLink textImageClassName="!block" />
             <BoxContent>
               <p>
                 NFT marketplace UI created
