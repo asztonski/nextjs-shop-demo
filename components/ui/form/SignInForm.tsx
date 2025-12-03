@@ -103,7 +103,9 @@ export const SignInForm = () => {
           Sign up
         </Link>
       </p>
-      {submitError && <p className="text-red-500 mt-2">{submitError}</p>}
+      <p className={`text-red-500 mt-2 ${submitError ? "" : "opacity-0"}`}>
+        {submitError ? submitError : "."}
+      </p>
     </div>
   );
 };
