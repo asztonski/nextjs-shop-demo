@@ -39,7 +39,7 @@ export const TextField = ({
   }, [isInvalid]);
 
   return (
-    <div className="relative w-full">
+    <div className={`relative w-full`}>
       <div
         className={`rounded-full bg-foreground relative text-background w-full p-2 overflow-hidden border-3 ${
           isInvalid ? "border-red-500" : ""
@@ -70,15 +70,15 @@ export const TextField = ({
           />
         </div>
       </div>
-      {isInvalid && (
-        <p
-          className={`absolute text-red-500 text-xs left-3 top-[110%] z-10 transition-opacity duration-200 ease-in-out ${
-            errorVisible ? "opacity-100" : "opacity-0"
-          }`}
-        >
-          {errorMessage}
+      <div
+        className={`grid ease-[ease] duration-500 ${
+          isInvalid ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
+        }`}
+      >
+        <p className={`text-red-500 text-xs mt-2 ml-2 overflow-hidden`}>
+          {isInvalid ? errorMessage : ""}
         </p>
-      )}
+      </div>
     </div>
   );
 };
