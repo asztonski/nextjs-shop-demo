@@ -80,7 +80,9 @@ export const SignUpForm = () => {
       name: "email",
       value: email,
       onChange: (e: React.ChangeEvent<HTMLInputElement>) => (
-        setEmail(e.target.value), handleEmailValidation(e.target.value)
+        setEmail(e.target.value),
+        handleEmailValidation(e.target.value),
+        setSubmitError("")
       ),
       onBlur: () => handleEmailValidation(email),
       icon: EnvelopeIcon,
@@ -154,10 +156,10 @@ export const SignUpForm = () => {
   };
 
   return (
-    <div className="lg:w-3/4">
+    <div className="lg:w-3/4 lg:h-105">
       <form
         onSubmit={handleSubmit}
-        className="flex flex-col gap-11 mt-8 lg:mt-10 w-full"
+        className="flex flex-col gap-3 mt-8 lg:mt-10 w-full"
       >
         {FORM_ITEMS.map(
           ({
@@ -188,7 +190,9 @@ export const SignUpForm = () => {
           )
         )}
         <Button
-          isDisabled={!isFormValid || isSubmitting || !isFormFilled}
+          isDisabled={
+            !isFormValid || isSubmitting || !isFormFilled || submitError !== ""
+          }
           className="py-3 !w-full"
           type="submit"
         >
@@ -196,7 +200,9 @@ export const SignUpForm = () => {
         </Button>
         {/* Wyświetl błąd jeśli wystąpił */}
       </form>
-      {submitError && <p className="text-red-500 mt-2">{submitError}</p>}
+      <p className={`text-red-500 mt-2 ${submitError ? "" : "opacity-0"}`}>
+        {submitError ? submitError : "."}
+      </p>
     </div>
   );
 };
