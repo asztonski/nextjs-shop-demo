@@ -3,6 +3,7 @@ import { Work_Sans, Space_Mono } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/ui/header/Header";
 import { Footer } from "@/components/ui/footer/Footer";
+import { AuthSync } from "./(auth)/AuthSync";
 
 const workSans = Work_Sans({
   variable: "--font-work-sans",
@@ -31,6 +32,7 @@ export default function RootLayout({
       <body
         className={`${workSans.variable} ${spaceMono.variable} antialiased`}
       >
+        <AuthSync />
         <div className="flex flex-col min-h-screen">
           <Header />
           <main className="flex-grow flex flex-col justify-end">
