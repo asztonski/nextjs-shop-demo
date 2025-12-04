@@ -121,7 +121,7 @@ export const handleLoginSubmit = async ({
       console.log("handleLoginSubmit - isUserLoggedIn:", isUserLoggedIn);
 
       if (isUserLoggedIn) {
-        router.push("/");
+        router.push("/profile");
       }
     } else {
       throw new Error("Brak tokenu w odpowiedzi z serwera");
