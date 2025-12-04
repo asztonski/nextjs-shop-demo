@@ -88,7 +88,7 @@ export const SignInForm = () => {
           )
         )}
         <Button
-          isDisabled={isLoggingIn || !isFormFilled}
+          isDisabled={isLoggingIn || !isFormFilled || submitError !== ""}
           className="py-3 !w-full"
           type="submit"
         >
@@ -103,7 +103,11 @@ export const SignInForm = () => {
           Sign up
         </Link>
       </p>
-      <p className={`text-red-500 mt-2 ${submitError ? "" : "opacity-0"}`}>
+      <p
+        className={`text-red-500 mt-2 mx-auto w-max ${
+          submitError ? "" : "opacity-0"
+        }`}
+      >
         {submitError ? submitError : "."}
       </p>
     </div>
