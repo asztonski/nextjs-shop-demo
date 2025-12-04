@@ -41,7 +41,7 @@ const NavList = ({
   isUserLoggedIn,
   showAuthButtons = true,
 }: NavListProps) => {
-  console.log("NavList - isUserLoggedIn:", isUserLoggedIn);
+  // console.log("NavList - isUserLoggedIn:", isUserLoggedIn);
 
   const router = useRouter();
   const { logout, token } = useAuthStore();
