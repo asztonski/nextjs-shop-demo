@@ -1,6 +1,5 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import Image from "next/image";
 
 export const TextField = ({
@@ -28,16 +27,6 @@ export const TextField = ({
   onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
   name?: string;
 }) => {
-  const [errorVisible, setErrorVisible] = useState(false);
-
-  useEffect(() => {
-    if (isInvalid) {
-      setErrorVisible(isInvalid);
-    } else {
-      setErrorVisible(false);
-    }
-  }, [isInvalid]);
-
   return (
     <div className={`relative w-full`}>
       <div

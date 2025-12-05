@@ -1,7 +1,7 @@
 // AuthSync.tsx
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { useAuthStore } from "@/app/store/auth";
 import { useRouter } from "next/navigation";
 
