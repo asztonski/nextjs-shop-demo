@@ -22,6 +22,22 @@ vi.mock("next/font/google", () => {
 });
 
 /**
+ * Mock next/navigation hooks used in Next.js App Router
+ */
+vi.mock("next/navigation", () => ({
+  useRouter: vi.fn(() => ({
+    push: vi.fn(),
+    replace: vi.fn(),
+    prefetch: vi.fn(),
+    back: vi.fn(),
+    forward: vi.fn(),
+    refresh: vi.fn(),
+  })),
+  usePathname: vi.fn(() => "/"),
+  useSearchParams: vi.fn(() => new URLSearchParams()),
+}));
+
+/**
  * Mock global CSS imports so PostCSS/Tailwind processing isn't executed
  * inside the test environment. Vitest + JSDOM doesn't need the real CSS.
  *

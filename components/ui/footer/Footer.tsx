@@ -43,7 +43,7 @@ export const Footer = () => {
   );
 
   const BoxTitle = ({ title }: { title: string }) => (
-    <h3 className="text-box-title font-semibold font-space-mono">{title}</h3>
+    <h3 className="text-box-subtitle font-semibold font-space-mono">{title}</h3>
   );
 
   const BoxContent = ({ children }: { children: React.ReactNode }) => (
@@ -57,7 +57,7 @@ export const Footer = () => {
       <div className="container-compact flex flex-col mx-auto py-3">
         <div className="flex flex-col lg:flex-row w-full justify-between gap-3 m-auto lg:px-9 pb-6">
           <BoxContainer>
-            <LogoLink fullyVisible />
+            <LogoLink textImageClassName="!block" />
             <BoxContent>
               <p>
                 NFT marketplace UI created
@@ -103,12 +103,10 @@ export const Footer = () => {
             <BoxContent>
               <p>
                 Get exclusive promotions & updates
-                <br className="hidden lg:block" />
-                straight to your inbox.
+                <br className="hidden lg:block" /> straight to your inbox.
               </p>
               <InputGroup
                 buttonText="Subscribe"
-                buttonIcon="/buttons/envelope.svg"
                 textFieldPlaceholder="Enter your email here"
                 textFieldValue=""
               />

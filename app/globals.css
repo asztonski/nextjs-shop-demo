@@ -22,8 +22,7 @@
 
   --font-work-sans: var(--font-work-sans);
   --font-space-mono: var(--font-space-mono);
-
-  --text-box-title: 1.375rem;
+  --text-box-subtitle: 1.375rem;
 
   /* spacing */
   --spacing-15: 3.75rem;
@@ -77,6 +76,14 @@ body {
 
 .svg-hover {
   @apply text-celeste-dark hover:text-accent transition ease-in-out duration-75 cursor-pointer;
+}
+
+.svg-icon-white {
+  @apply text-foreground;
+}
+
+.svg-icon-dark {
+  @apply text-background-muted;
 }
 
 .perspective-midrange {

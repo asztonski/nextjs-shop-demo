@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { generateRandomHeroData } from "@/helpers/assetGenerator";
-import { Button } from "@/components/ui/button/Button";
+import { ButtonLink } from "@/components/ui/link/Link";
 import RocketIcon from "@/public/buttons/rocket.svg";
 
 const charts = [
@@ -77,9 +77,14 @@ export const Hero = () => {
       </div>
       <HeroCard className="row-span-2" />
       <div className="flex flex-col gap-8">
-        <Button className="py-4 px-10 !w-full md:!w-max" icon={RocketIcon}>
+        <ButtonLink
+          href="/sign-up"
+          alt="Icon of a rocket"
+          className="py-4 px-10 !w-full md:!w-max"
+          icon={RocketIcon}
+        >
           Get Started
-        </Button>
+        </ButtonLink>
         <div className="flex w-full justify-between px-2 gap-1">
           {charts.map(({ value, label }) => (
             <div key={label}>
