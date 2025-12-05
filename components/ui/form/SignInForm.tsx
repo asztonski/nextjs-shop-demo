@@ -58,10 +58,10 @@ export const SignInForm = () => {
   };
 
   return (
-    <div className="lg:w-3/4">
+    <div className="lg:w-3/4 lg:h-88">
       <form
         onSubmit={handleSubmit}
-        className={`flex flex-col gap-4 mt-8 lg:mt-10 w-full`}
+        className={`flex flex-col gap-1 mt-8 lg:mt-10 w-full`}
       >
         {FORM_ITEMS.map(
           ({
