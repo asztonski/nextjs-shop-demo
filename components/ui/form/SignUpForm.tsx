@@ -200,7 +200,11 @@ export const SignUpForm = () => {
         </Button>
         {/* Wyświetl błąd jeśli wystąpił */}
       </form>
-      <p className={`text-red-500 mt-2 ${submitError ? "" : "opacity-0"}`}>
+      <p
+        className={`text-red-500 mt-2 ease-in-out duration-300 ${
+          submitError ? "" : "opacity-0"
+        }`}
+      >
         {submitError ? submitError : "."}
       </p>
     </div>
