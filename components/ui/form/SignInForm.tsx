@@ -24,8 +24,9 @@ export const SignInForm = () => {
       placeholder: "Email address",
       name: "email",
       value: email,
-      onChange: (e: React.ChangeEvent<HTMLInputElement>) =>
-        setEmail(e.target.value),
+      onChange: (e: React.ChangeEvent<HTMLInputElement>) => (
+        setEmail(e.target.value), setSubmitError("")
+      ),
       icon: EnvelopeIcon,
       errorMessage: "Invalid email address",
     },
@@ -33,8 +34,9 @@ export const SignInForm = () => {
       placeholder: "Password",
       name: "password",
       value: password,
-      onChange: (e: React.ChangeEvent<HTMLInputElement>) =>
-        setPassword(e.target.value),
+      onChange: (e: React.ChangeEvent<HTMLInputElement>) => (
+        setPassword(e.target.value), setSubmitError("")
+      ),
       icon: LockIcon,
       type: "password",
       errorMessage: "Minimum 8 characters, at least 1 letter and 1 number",
@@ -104,7 +106,7 @@ export const SignInForm = () => {
         </Link>
       </p>
       <p
-        className={`text-red-500 mt-2 mx-auto w-max ${
+        className={`text-red-500 mt-2 mx-auto w-max ease-in-out duration-300 ${
           submitError ? "" : "opacity-0"
         }`}
       >
