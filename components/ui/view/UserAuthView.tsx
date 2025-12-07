@@ -6,13 +6,13 @@ export const UserAuthView = ({
   title,
   subtitle,
 }: {
-  children: React.ReactNode;
+  children?: React.ReactNode;
   image: StaticImageData;
   title: string;
   subtitle: string;
 }) => {
   return (
-    <div className="flex flex-col lg:flex-row gap-4 lg:gap-15 lg:x-auto w-full lg:w-auto py-6 lg:py-0">
+    <div className="flex flex-col lg:flex-row gap-4 lg:gap-15 lg:x-auto w-full lg:w-auto py-6 lg:py-0 min-h-screen">
       <div className="w-full lg:flex-1 relative h-96 lg:h-auto">
         <Image
           src={image}
