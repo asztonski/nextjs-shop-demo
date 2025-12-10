@@ -123,7 +123,7 @@ export default function AccountActivatedPage() {
           : "Your account has been successfully activated. You can now sign in to your account."
       }
     >
-      <ButtonLink href="/sign-in" className="mt-4 mx-auto">
+      <ButtonLink href="/sign-in" className="mt-4">
         Sign In
       </ButtonLink>
     </UserAuthView>
