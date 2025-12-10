@@ -4,34 +4,25 @@ import React, { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { UserAuthView } from "@/components/ui/view/UserAuthView";
 import HeroImage from "@/public/sign-up-hero.jpg";
+import { Button } from "@/components/ui/button/Button";
+import { resendActivationLink } from "@/helpers/auth/resendActivationLink";
 
 export default function ActivationRequiredPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const [isAuthorized, setIsAuthorized] = useState(false);
+  const [isAuthorized, setIsAuthorized] = useState<boolean>(false);
   const [email, setEmail] = useState<string | null>(null);
+  const [isResending, setIsResending] = useState<boolean>(false);
+  const [message, setMessage] = useState<string | null>(null);
 
   useEffect(() => {
-    const verifyAccess = async () => {
-      // Sprawdź token z URL
+    const verifyAccess = () => {
       const token = searchParams.get("token");
 
       if (token) {
-        try {
-          // Opcjonalnie: zweryfikuj token przez API
-          // const response = await fetch(`/api/verify-activation-access?token=${token}`);
-          // if (!response.ok) throw new Error("Invalid token");
-
-          // Jeśli token jest OK, zapisz w sessionStorage dla odświeżenia strony
-          sessionStorage.setItem("activationAccessToken", token);
-          setIsAuthorized(true);
-        } catch (error) {
-          console.error("Token verification failed:", error);
-          router.push("/sign-in");
-          return;
-        }
+        sessionStorage.setItem("activationAccessToken", token);
+        setIsAuthorized(true);
       } else {
-        // Sprawdź sessionStorage (fallback dla odświeżenia strony)
         const savedToken = sessionStorage.getItem("activationAccessToken");
         const pendingEmail = sessionStorage.getItem("pendingActivation");
 
@@ -41,7 +32,6 @@ export default function ActivationRequiredPage() {
             setEmail(pendingEmail);
           }
         } else {
-          // Brak dostępu - przekieruj na sign-in
           router.push("/sign-in");
           return;
         }
@@ -51,8 +41,32 @@ export default function ActivationRequiredPage() {
     verifyAccess();
   }, [searchParams, router]);
 
+  const handleResend = async () => {
+    if (!email) {
+      setMessage("Email address not found");
+      return;
+    }
+
+    setIsResending(true);
+    setMessage(null);
+
+    try {
+      const result = await resendActivationLink(email);
+
+      if (result.success) {
+        setMessage("Activation link has been sent successfully!");
+      } else {
+        setMessage(result.error || "Failed to send activation link");
+      }
+    } catch (error) {
+      setMessage("An error occurred. Please try again.");
+    } finally {
+      setIsResending(false);
+    }
+  };
+
   if (!isAuthorized) {
-    return null; // Router przekieruje
+    return null;
   }
 
   return (
@@ -61,9 +75,29 @@ export default function ActivationRequiredPage() {
       title="Activation link sent!"
       subtitle={
         email
-          ? `Please check your email (${email}) to activate your account.`
-          : "Please check your email to activate your account."
+          ? `Please check your email (${email}) to activate your account. If you did not receive the email, please check your spam folder.`
+          : "Please check your email to activate your account. If you did not receive the email, please check your spam folder."
       }
-    />
+    >
+      <div className="mt-4">
+        <p>Not received the email?</p>
+        <Button
+          className="mt-2 py-3"
+          onClick={handleResend}
+          isDisabled={isResending || !email}
+        >
+          {isResending ? "Sending..." : "Resend"}
+        </Button>
+        {message && (
+          <p
+            className={`mt-2 text-sm ${
+              message.includes("success") ? "text-green-600" : "text-red-600"
+            }`}
+          >
+            {message}
+          </p>
+        )}
+      </div>
+    </UserAuthView>
   );
 }
