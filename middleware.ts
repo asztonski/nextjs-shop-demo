@@ -51,6 +51,16 @@ export function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL("/profile", request.url));
   }
 
+  // Strony tylko dla niezalogowanych
+  const publicOnlyPages = ["/activation-required", "/account-activated"];
+
+  if (publicOnlyPages.some((page) => pathname.startsWith(page))) {
+    if (token) {
+      // Jeśli zalogowany, przekieruj do strony głównej
+      return NextResponse.redirect(new URL("/", request.url));
+    }
+  }
+
   console.log("[Middleware] Allowing request to proceed");
   return NextResponse.next();
 }
@@ -113,5 +123,7 @@ export const config = {
      * - public folder
      */
     "/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
+    "/activation-required/:path*",
+    "/account-activated/:path*",
   ],
 };
