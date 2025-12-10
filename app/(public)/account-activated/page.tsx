@@ -11,13 +11,15 @@ export default function AccountActivatedPage() {
   const searchParams = useSearchParams();
   const [isAuthorized, setIsAuthorized] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [isLoading, setIsLoading] = useState(true); // Dodaj loading state
+  const [isLoading, setIsLoading] = useState(true);
+  const [username, setUsername] = useState<string | null>(null);
 
   useEffect(() => {
-    const verifyAccess = async () => {
+    const activateAccount = async () => {
       const token = searchParams.get("token");
       const serverError = searchParams.get("error");
 
+      // If there's already an error from server redirect
       if (serverError) {
         setError(decodeURIComponent(serverError));
         setIsAuthorized(true);
@@ -25,51 +27,109 @@ export default function AccountActivatedPage() {
         return;
       }
 
-      if (token) {
-        try {
-          sessionStorage.setItem("accountActivatedToken", token);
-          setIsAuthorized(true);
-
-          // Wyczyść tokeny po aktywacji
-          sessionStorage.removeItem("activationAccessToken");
-          sessionStorage.removeItem("pendingActivation");
-        } catch (error) {
-          console.error("Token verification failed:", error);
-          setError("Failed to verify activation token");
-          setIsAuthorized(true);
-        } finally {
-          setIsLoading(false);
-        }
-      } else {
+      // If no token, check if already activated
+      if (!token) {
         const savedToken = sessionStorage.getItem("accountActivatedToken");
-
         if (savedToken) {
           setIsAuthorized(true);
           setIsLoading(false);
         } else {
           router.push("/sign-in");
         }
+        return;
+      }
+
+      // ✅ KLUCZ: Wywołaj backend API do aktywacji konta
+      try {
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}/auth/activate/${token}`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+
+        const data = await response.json();
+
+        if (data.success) {
+          // ✅ Sukces - konto aktywowane
+          setUsername(data.username);
+          setIsAuthorized(true);
+          sessionStorage.setItem("accountActivatedToken", token);
+
+          // Wyczyść tokeny po aktywacji
+          sessionStorage.removeItem("activationAccessToken");
+          sessionStorage.removeItem("pendingActivation");
+        } else {
+          // ❌ Błąd aktywacji
+          setError(data.error || "Activation failed");
+          setIsAuthorized(true);
+        }
+      } catch (error) {
+        console.error("Activation failed:", error);
+        setError(
+          "Failed to activate account. Please try again or contact support."
+        );
+        setIsAuthorized(true);
+      } finally {
+        setIsLoading(false);
       }
     };
 
-    verifyAccess();
+    activateAccount();
   }, [searchParams, router]);
 
-  if (isLoading || !isAuthorized) {
-    return null; // Lub loading spinner
+  // Loading state
+  if (isLoading) {
+    return (
+      <UserAuthView
+        image={HeroImage}
+        title="Activating Your Account..."
+        subtitle="Please wait while we activate your account."
+      >
+        <div className="flex justify-center mt-4">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900"></div>
+        </div>
+      </UserAuthView>
+    );
   }
 
+  // Not authorized
+  if (!isAuthorized) {
+    return null;
+  }
+
+  // Error state
+  if (error) {
+    return (
+      <UserAuthView
+        image={HeroImage}
+        title="Activation Failed"
+        subtitle={`There was a problem activating your account: ${error}`}
+      >
+        <div className="flex gap-4 mt-4 mx-auto">
+          <ButtonLink href="/resend-activation" className="mt-4 mx-auto">
+            Resend Activation Email
+          </ButtonLink>
+        </div>
+      </UserAuthView>
+    );
+  }
+
+  // Success state
   return (
     <UserAuthView
       image={HeroImage}
-      title={error ? "Activation Failed" : "Account Activated!"}
+      title="Account Activated!"
       subtitle={
-        error
-          ? `There was a problem activating your account: ${error}`
+        username
+          ? `Welcome ${username}! Your account has been successfully activated. You can now sign in.`
           : "Your account has been successfully activated. You can now sign in to your account."
       }
     >
-      <ButtonLink href="/sign-in" className="mt-4">
+      <ButtonLink href="/sign-in" className="mt-4 mx-auto">
         Sign In
       </ButtonLink>
     </UserAuthView>
