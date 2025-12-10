@@ -6,6 +6,7 @@ import { UserAuthView } from "@/components/ui/view/UserAuthView";
 import HeroImage from "@/public/sign-up-hero.jpg";
 import { Button } from "@/components/ui/button/Button";
 import { resendActivationLink } from "@/helpers/auth/resendActivationLink";
+import { ButtonLink } from "@/components/ui/link/Link";
 
 export default function ActivationRequiredPage() {
   const router = useRouter();
@@ -69,6 +70,8 @@ export default function ActivationRequiredPage() {
     return null;
   }
 
+  const isError = message && !message.includes("success");
+
   return (
     <UserAuthView
       image={HeroImage}
@@ -80,22 +83,25 @@ export default function ActivationRequiredPage() {
       }
     >
       <div className="mt-4">
-        <p>Not received the email?</p>
-        <Button
-          className="mt-2 py-3"
-          onClick={handleResend}
-          isDisabled={isResending || !email}
-        >
-          {isResending ? "Sending..." : "Resend"}
-        </Button>
-        {message && (
-          <p
-            className={`mt-2 text-sm ${
-              message.includes("success") ? "text-green-600" : "text-red-600"
-            }`}
-          >
-            {message}
-          </p>
+        {!isError ? (
+          <div>
+            <p>Not received the email?</p>
+            <Button
+              className="mt-2 py-3"
+              onClick={handleResend}
+              isDisabled={isResending || !email}
+            >
+              {isResending ? "Sending..." : "Resend"}
+            </Button>
+            <p className={`mt-3 text-sm text-green-600`}>{message}</p>
+          </div>
+        ) : (
+          <div>
+            <p className={`text-sm text-red-500`}>{message}</p>
+            <ButtonLink className="mt-3" href="/sign-up">
+              Sign up
+            </ButtonLink>
+          </div>
         )}
       </div>
     </UserAuthView>
