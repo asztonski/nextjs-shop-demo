@@ -87,8 +87,6 @@ export const handleRegisterSubmit = async ({
       setSubmitError(
         error instanceof Error ? error.message : "Nieznany błąd rejestracji"
       );
-    } finally {
-      setIsSubmitting(false);
     }
   }
 };
@@ -139,7 +137,5 @@ export const handleLoginSubmit = async ({
     setSubmitError(
       error instanceof Error ? error.message : "Nieznany błąd logowania"
     );
-  } finally {
-    setIsSubmitting(false);
   }
 };
