@@ -107,14 +107,8 @@ export default function AccountActivatedPage() {
       <UserAuthView
         image={HeroImage}
         title="Activation Failed"
-        subtitle={`There was a problem activating your account: ${error}`}
-      >
-        <div className="flex gap-4 mt-4 mx-auto">
-          <ButtonLink href="/resend-activation" className="mt-4 mx-auto">
-            Resend Activation Email
-          </ButtonLink>
-        </div>
-      </UserAuthView>
+        subtitle={`${error}`}
+      ></UserAuthView>
     );
   }
 
