@@ -71,7 +71,6 @@ const NavList = ({
       <ul
         className={`flex items-center ${
           vertical ? "flex-col items-start gap-6" : "gap-6 xl:gap-12"
-          vertical ? "flex-col items-start gap-6" : "gap-6 xl:gap-12"
         }`}
       >
         {navLinks.map(({ href, label }) => (
