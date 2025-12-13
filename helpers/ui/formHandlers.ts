@@ -124,7 +124,7 @@ export const handleLoginSubmit = async ({
       useAuthStore.getState().login(token);
 
       // Sprawdź flagę AFTER ustawienia tokenu
-      const isUserLoggedIn = useAuthStore.getState().isUserLoggedIn;
+      const isUserLoggedIn = useAuthStore.getState().getIsLoggedIn();
       console.log("handleLoginSubmit - isUserLoggedIn:", isUserLoggedIn);
 
       if (isUserLoggedIn) {
