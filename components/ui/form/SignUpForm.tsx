@@ -123,11 +123,7 @@ export const SignUpForm = () => {
       value: confirmPassword,
       onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
         setConfirmPassword(e.target.value);
-        if (!isConfirmPasswordValid) {
-          setTimeout(() => {
-            handleConfirmPasswordValidation(password, e.target.value);
-          }, DELAY_TIME);
-        }
+        handleConfirmPasswordValidation(password, e.target.value);
       },
       onBlur: () => handleConfirmPasswordValidation(password, confirmPassword),
       icon: LockIcon,
