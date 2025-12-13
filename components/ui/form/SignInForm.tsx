@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { TextField } from "../input/TextField";
 import { Button } from "../button/Button";
@@ -53,11 +53,18 @@ export const SignInForm = () => {
       setSubmitError,
       router,
     });
-    // Dodaj małe opóźnienie, aby użytkownik zauważył zmianę stanu
-    setTimeout(() => {
-      setIsLoggingIn(false);
-    }, TIMEOUT);
   };
+
+  useEffect(() => {
+    if (submitError || isLoggingIn) {
+      const timer = setTimeout(() => {
+        setSubmitError("");
+        setIsLoggingIn(false);
+      }, 5000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [submitError, isLoggingIn]);
 
   return (
     <div className="lg:w-3/4 lg:h-88">
