@@ -17,8 +17,6 @@ export const SignInForm = () => {
   const [isLoggingIn, setIsLoggingIn] = useState(false);
   const [submitError, setSubmitError] = useState("");
 
-  const TIMEOUT = 200;
-
   const FORM_ITEMS = [
     {
       placeholder: "Email address",
