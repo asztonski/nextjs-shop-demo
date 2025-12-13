@@ -10,7 +10,7 @@ const charts = [
   { value: "240k+", label: "artists" },
 ];
 
-const HeroCard = async ({ className }: { className?: string }) => {
+const HeroCard = ({ className }: { className?: string }) => {
   // all logic runs on the server at request time
   const data = generateRandomHeroData();
 
