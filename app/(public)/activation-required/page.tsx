@@ -60,7 +60,7 @@ export default function ActivationRequiredPage() {
         setMessage(result.error || "Failed to send activation link");
       }
     } catch (error) {
-      setMessage("An error occurred. Please try again.");
+      setMessage(`An error occurred. Please try again. ${error}`);
     } finally {
       setIsResending(false);
     }
