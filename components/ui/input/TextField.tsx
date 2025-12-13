@@ -65,7 +65,7 @@ export const TextField = ({
         }`}
       >
         <p className={`text-red-500 text-xs mt-2 ml-2 overflow-hidden`}>
-          {isInvalid ? errorMessage : ""}
+          {isInvalid ? errorMessage : "."}
         </p>
       </div>
     </div>
