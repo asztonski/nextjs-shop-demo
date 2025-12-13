@@ -26,6 +26,13 @@ export const TextField = ({
   errorMessage?: string;
   onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
   name?: string;
+  inputClassName?: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  type?: string;
+  isInvalid?: boolean;
+  errorMessage?: string;
+  onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
+  name?: string;
 }) => {
   return (
     <div className={`relative w-full`}>
