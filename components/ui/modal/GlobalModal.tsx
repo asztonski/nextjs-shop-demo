@@ -1,11 +1,12 @@
 "use client";
 import { useEffect, useState, useRef } from "react";
-import { useAuthStore } from "@/app/store/auth";
+import { useAuthStore, useIsLoggedIn } from "@/app/store/auth";
 import { useRouter } from "next/navigation";
 import { Button } from "../button/Button";
 
 export const GlobalModal = () => {
-  const { logout, isUserLoggedIn } = useAuthStore();
+  const { logout } = useAuthStore();
+  const isUserLoggedIn = useIsLoggedIn();
   const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const INACTIVITY_TIME = 900000; // 15 minutes in milliseconds
