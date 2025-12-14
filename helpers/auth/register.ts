@@ -13,8 +13,8 @@ export const registerUser = async ({
   username: string;
   email: string;
   password: string;
-}): Promise<void> => {
-  const REGISTER_USER_URL = `${process.env.NEXT_PUBLIC_API_URL}${process.env.NEXT_PUBLIC_REGISTER_USER_ENDPOINT}`;
+}): Promise<{ activationAccessToken?: string }> => {
+  const REGISTER_USER_URL = `${process.env.NEXT_PUBLIC_API_URL}/${process.env.NEXT_PUBLIC_REGISTER_USER_ENDPOINT}`;
 
   // console.log("Register URL:", REGISTER_USER_URL);
 
@@ -65,4 +65,10 @@ export const registerUser = async ({
 
     throw new Error(errorMessage);
   }
+
+  // Zwróć dane z odpowiedzi (w tym activationAccessToken jeśli istnieje)
+  const data = await response.json();
+  return {
+    activationAccessToken: data.activationAccessToken,
+  };
 };

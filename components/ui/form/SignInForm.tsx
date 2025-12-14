@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { TextField } from "../input/TextField";
 import { Button } from "../button/Button";
@@ -17,15 +17,14 @@ export const SignInForm = () => {
   const [isLoggingIn, setIsLoggingIn] = useState(false);
   const [submitError, setSubmitError] = useState("");
 
-  const TIMEOUT = 200;
-
   const FORM_ITEMS = [
     {
       placeholder: "Email address",
       name: "email",
       value: email,
-      onChange: (e: React.ChangeEvent<HTMLInputElement>) =>
-        setEmail(e.target.value),
+      onChange: (e: React.ChangeEvent<HTMLInputElement>) => (
+        setEmail(e.target.value), setSubmitError("")
+      ),
       icon: EnvelopeIcon,
       errorMessage: "Invalid email address",
     },
@@ -33,8 +32,9 @@ export const SignInForm = () => {
       placeholder: "Password",
       name: "password",
       value: password,
-      onChange: (e: React.ChangeEvent<HTMLInputElement>) =>
-        setPassword(e.target.value),
+      onChange: (e: React.ChangeEvent<HTMLInputElement>) => (
+        setPassword(e.target.value), setSubmitError("")
+      ),
       icon: LockIcon,
       type: "password",
       errorMessage: "Minimum 8 characters, at least 1 letter and 1 number",
@@ -51,11 +51,18 @@ export const SignInForm = () => {
       setSubmitError,
       router,
     });
-    // Dodaj małe opóźnienie, aby użytkownik zauważył zmianę stanu
-    setTimeout(() => {
-      setIsLoggingIn(false);
-    }, TIMEOUT);
   };
+
+  useEffect(() => {
+    if (submitError || isLoggingIn) {
+      const timer = setTimeout(() => {
+        setSubmitError("");
+        setIsLoggingIn(false);
+      }, 5000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [submitError, isLoggingIn]);
 
   return (
     <div className="lg:w-3/4 lg:h-88">
@@ -104,7 +111,7 @@ export const SignInForm = () => {
         </Link>
       </p>
       <p
-        className={`text-red-500 mt-2 mx-auto w-max ${
+        className={`text-red-500 mt-2 mx-auto w-max ease-in-out duration-300 ${
           submitError ? "" : "opacity-0"
         }`}
       >

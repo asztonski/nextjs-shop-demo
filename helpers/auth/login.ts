@@ -2,7 +2,7 @@
 export const loginUser = async (email: string, password: string) => {
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}${process.env.NEXT_PUBLIC_LOGIN_USER_ENDPOINT}`,
+      `${process.env.NEXT_PUBLIC_API_URL}/${process.env.NEXT_PUBLIC_LOGIN_USER_ENDPOINT}`,
       {
         method: "POST",
         headers: {

@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { TextField } from "../input/TextField";
 import { Button } from "../button/Button";
@@ -61,14 +61,21 @@ export const SignUpForm = () => {
     TIMEOUT
   );
 
+  const DELAY_TIME = 1500;
+
   const FORM_ITEMS = [
     {
       placeholder: "Username",
       name: "username",
       value: username,
-      onChange: (e: React.ChangeEvent<HTMLInputElement>) => (
-        setUsername(e.target.value), handleUsernameValidation(e.target.value)
-      ),
+      onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
+        setUsername(e.target.value);
+        if (!isUsernameValid) {
+          setTimeout(() => {
+            handleUsernameValidation(e.target.value);
+          }, DELAY_TIME);
+        }
+      },
       onBlur: () => handleUsernameValidation(username),
       icon: UserIcon,
       errorMessage:
@@ -79,11 +86,14 @@ export const SignUpForm = () => {
       placeholder: "Email address",
       name: "email",
       value: email,
-      onChange: (e: React.ChangeEvent<HTMLInputElement>) => (
-        setEmail(e.target.value),
-        handleEmailValidation(e.target.value),
-        setSubmitError("")
-      ),
+      onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
+        setEmail(e.target.value);
+        if (!isEmailValid) {
+          setTimeout(() => {
+            handleEmailValidation(e.target.value);
+          }, DELAY_TIME);
+        }
+      },
       onBlur: () => handleEmailValidation(email),
       icon: EnvelopeIcon,
       errorMessage: "Invalid email address",
@@ -93,13 +103,15 @@ export const SignUpForm = () => {
       placeholder: "Password",
       name: "password",
       value: password,
-      onChange: (e: React.ChangeEvent<HTMLInputElement>) => (
-        setPassword(e.target.value), handlePasswordValidation(e.target.value)
-      ),
-      onBlur: () =>
-        isPasswordValid
-          ? handlePasswordValidation(password)
-          : setIsPasswordValid(true),
+      onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
+        setPassword(e.target.value);
+        if (!isPasswordValid) {
+          setTimeout(() => {
+            handlePasswordValidation(e.target.value);
+          }, DELAY_TIME);
+        }
+      },
+      onBlur: () => handlePasswordValidation(password),
       icon: LockIcon,
       type: "password",
       errorMessage: "Minimum 8 characters, at least 1 letter and 1 number",
@@ -109,10 +121,10 @@ export const SignUpForm = () => {
       placeholder: "Confirm Password",
       name: "confirmPassword",
       value: confirmPassword,
-      onChange: (e: React.ChangeEvent<HTMLInputElement>) => (
-        setConfirmPassword(e.target.value),
-        handleConfirmPasswordValidation(password, e.target.value)
-      ),
+      onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
+        setConfirmPassword(e.target.value);
+        handleConfirmPasswordValidation(password, e.target.value);
+      },
       onBlur: () => handleConfirmPasswordValidation(password, confirmPassword),
       icon: LockIcon,
       type: "password",
@@ -155,6 +167,20 @@ export const SignUpForm = () => {
     });
   };
 
+  const isDisabled =
+    !isFormValid || isSubmitting || !isFormFilled || submitError !== "";
+
+  useEffect(() => {
+    if (submitError || isSubmitting) {
+      const timer = setTimeout(() => {
+        setSubmitError("");
+        setIsSubmitting(false);
+      }, 5000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [submitError, isSubmitting]);
+
   return (
     <div className="lg:w-3/4 lg:h-105">
       <form
@@ -189,18 +215,16 @@ export const SignUpForm = () => {
             />
           )
         )}
-        <Button
-          isDisabled={
-            !isFormValid || isSubmitting || !isFormFilled || submitError !== ""
-          }
-          className="py-3 !w-full"
-          type="submit"
-        >
+        <Button isDisabled={isDisabled} className="py-3 !w-full" type="submit">
           {isSubmitting ? "Creating Account..." : "Create Account"}
         </Button>
         {/* Wyświetl błąd jeśli wystąpił */}
       </form>
-      <p className={`text-red-500 mt-2 ${submitError ? "" : "opacity-0"}`}>
+      <p
+        className={`text-red-500 mt-2 ease-in-out duration-300 ${
+          submitError ? "" : "opacity-0"
+        }`}
+      >
         {submitError ? submitError : "."}
       </p>
     </div>

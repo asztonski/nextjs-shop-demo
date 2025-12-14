@@ -8,13 +8,13 @@ import { persist } from "zustand/middleware";
 interface AuthState {
   token: string | null;
   tokenExpiry: number | null; // timestamp wygaśnięcia
-  isUserLoggedIn: boolean;
   isHydrated: boolean;
   setToken: (token: string | null) => void;
   login: (token: string) => void;
   logout: () => void;
   setHydrated: () => void;
   isTokenExpired: () => boolean; // ✅ Sprawdź lokalnie
+  getIsLoggedIn: () => boolean; // ✅ Selektor - obliczany z token
 }
 
 export const useAuthStore = create<AuthState>()(
@@ -22,8 +22,14 @@ export const useAuthStore = create<AuthState>()(
     (set, get) => ({
       token: null,
       tokenExpiry: null,
-      isUserLoggedIn: false,
       isHydrated: false,
+
+      // ✅ Selektor - zawsze obliczany z token (jedno źródło prawdy)
+      getIsLoggedIn: () => {
+        const { token, tokenExpiry } = get();
+        if (!token || !tokenExpiry) return false;
+        return Date.now() < tokenExpiry;
+      },
 
       login: (token: string) => {
         // Dekoduj JWT i wyciągnij exp (bez weryfikacji!)
@@ -38,7 +44,6 @@ export const useAuthStore = create<AuthState>()(
         set({
           token,
           tokenExpiry: expiry,
-          isUserLoggedIn: true,
         });
       },
 
@@ -50,7 +55,6 @@ export const useAuthStore = create<AuthState>()(
         set({
           token: null,
           tokenExpiry: null,
-          isUserLoggedIn: false,
         });
       },
 
@@ -63,7 +67,6 @@ export const useAuthStore = create<AuthState>()(
       setToken: (token) =>
         set({
           token,
-          isUserLoggedIn: token !== null,
         }),
 
       setHydrated: () => set({ isHydrated: true }),
@@ -76,15 +79,12 @@ export const useAuthStore = create<AuthState>()(
       }),
       onRehydrateStorage: () => (state) => {
         if (state) {
-          // ✅ Przywróć isUserLoggedIn na podstawie tokenu
+          // ✅ Walidacja tokenu przy rehydracji
           if (state.token && state.tokenExpiry) {
             // Sprawdź czy token nie wygasł
             if (state.isTokenExpired()) {
               state.logout();
               // Tutaj mogę dodać dodatkową logikę, np. przekierowanie, wyświetlić modal itp.
-            } else {
-              // Token istnieje i jest ważny
-              state.setToken(state.token);
             }
           }
           state.setHydrated();
@@ -93,3 +93,10 @@ export const useAuthStore = create<AuthState>()(
     }
   )
 );
+
+// ✅ Hook do użycia w komponentach React - obliczany z token (jedno źródło prawdy)
+export const useIsLoggedIn = () => {
+  const { token, tokenExpiry } = useAuthStore();
+  if (!token || !tokenExpiry) return false;
+  return Date.now() < tokenExpiry;
+};

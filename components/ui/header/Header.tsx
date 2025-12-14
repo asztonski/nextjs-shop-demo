@@ -6,7 +6,7 @@ import { NavLink, ButtonLink } from "../link/Link";
 import { LogoLink } from "../link/LogoLink";
 import { Button } from "../button/Button";
 import UserIcon from "@/public/buttons/user.svg";
-import { useAuthStore } from "@/app/store/auth";
+import { useAuthStore, useIsLoggedIn } from "@/app/store/auth";
 import LogoutIcon from "@/public/buttons/logout.svg";
 import { useRouter } from "next/navigation";
 import { logoutUser } from "@/helpers/auth/logout";
@@ -156,7 +156,8 @@ export const Header = () => {
   const ANIM_MS = 200;
   const menuId = "primary-nav";
 
-  const { isUserLoggedIn, isHydrated } = useAuthStore();
+  const { isHydrated } = useAuthStore();
+  const isUserLoggedIn = useIsLoggedIn();
   const isLoading = !isHydrated;
 
   return (

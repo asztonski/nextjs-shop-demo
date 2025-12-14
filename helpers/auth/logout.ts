@@ -2,7 +2,7 @@
 export const logoutUser = async (token: string) => {
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}${process.env.NEXT_PUBLIC_LOGOUT_USER_ENDPOINT}`,
+      `${process.env.NEXT_PUBLIC_API_URL}/${process.env.NEXT_PUBLIC_LOGOUT_USER_ENDPOINT}`,
       {
         method: "POST",
         headers: {

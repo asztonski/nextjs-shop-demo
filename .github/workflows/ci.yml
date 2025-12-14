@@ -11,6 +11,14 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Copy .env.example to .env
+        run: cp .env.example .env
+
+      - name: Create .env file with secrets
+        run: |
+          echo "NEXT_PUBLIC_API_URL=${{ secrets.NEXT_PUBLIC_API_URL }}" >> .env
+          echo "NEXTAUTH_SECRET=${{ secrets.NEXTAUTH_SECRET }}" >> .env
+
       - uses: actions/setup-node@v4
         with:
           node-version: "22" # DX: no 'cache: pnpm' to avoid early pnpm call

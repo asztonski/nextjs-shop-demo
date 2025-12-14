@@ -8,6 +8,7 @@ export interface RegisterFormData {
   email: string;
   password: string;
   confirmPassword: string;
+  activationAccessToken?: string;
 }
 
 // Definicje interfejsów dla funkcji walidacyjnych
@@ -72,14 +73,20 @@ export const handleRegisterSubmit = async ({
     setIsSubmitting(true);
 
     try {
-      await registerUser({ username, email, password });
-      router.push("/sign-in");
+      const response = await registerUser({ username, email, password });
+      if (response.activationAccessToken) {
+        router.push(
+          `/activation-required?token=${response.activationAccessToken}`
+        );
+      } else {
+        // Fallback - zapisz email w sessionStorage
+        sessionStorage.setItem("pendingActivation", email);
+        router.push("/activation-required");
+      }
     } catch (error) {
       setSubmitError(
         error instanceof Error ? error.message : "Nieznany błąd rejestracji"
       );
-    } finally {
-      setIsSubmitting(false);
     }
   }
 };
@@ -117,7 +124,7 @@ export const handleLoginSubmit = async ({
       useAuthStore.getState().login(token);
 
       // Sprawdź flagę AFTER ustawienia tokenu
-      const isUserLoggedIn = useAuthStore.getState().isUserLoggedIn;
+      const isUserLoggedIn = useAuthStore.getState().getIsLoggedIn();
       console.log("handleLoginSubmit - isUserLoggedIn:", isUserLoggedIn);
 
       if (isUserLoggedIn) {
@@ -130,7 +137,5 @@ export const handleLoginSubmit = async ({
     setSubmitError(
       error instanceof Error ? error.message : "Nieznany błąd logowania"
     );
-  } finally {
-    setIsSubmitting(false);
   }
 };

@@ -33,7 +33,7 @@ export const ButtonLink = ({
   return (
     <Link
       href={href}
-      className={`py-4 px-8 rounded-[20px] bg-accent flex items-center gap-4 font-semibold capitalize tap ${className}`}
+      className={`py-4 px-8 rounded-[20px] bg-accent flex justify-center w-max min-w-32 items-center gap-4 font-semibold capitalize tap ${className}`}
     >
       {icon && (
         <Image src={icon} alt={alt ?? "link icon"} width={19} height={19} />
