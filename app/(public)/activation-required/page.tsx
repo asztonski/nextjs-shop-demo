@@ -1,8 +1,6 @@
 "use client";
 
-export const dynamic = "force-dynamic";
-
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { UserAuthView } from "@/components/ui/view/UserAuthView";
 import HeroImage from "@/public/sign-up-hero.jpg";
@@ -12,6 +10,18 @@ import { ButtonLink } from "@/components/ui/link/Link";
 
 export default function ActivationRequiredPage() {
   const router = useRouter();
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <ActivationRequiredPageInner router={router} />
+    </Suspense>
+  );
+}
+
+function ActivationRequiredPageInner({
+  router,
+}: {
+  router: ReturnType<typeof useRouter>;
+}) {
   const searchParams = useSearchParams();
   const [isAuthorized, setIsAuthorized] = useState<boolean>(false);
   const [email, setEmail] = useState<string | null>(null);

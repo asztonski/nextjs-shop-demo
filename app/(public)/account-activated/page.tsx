@@ -1,15 +1,22 @@
 "use client";
 
-export const dynamic = "force-dynamic";
-
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { UserAuthView } from "@/components/ui/view/UserAuthView";
 import { ButtonLink } from "@/components/ui/link/Link";
 import HeroImage from "@/public/sign-up-hero.jpg";
 
+
 export default function AccountActivatedPage() {
   const router = useRouter();
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <AccountActivatedPageInner router={router} />
+    </Suspense>
+  );
+}
+
+function AccountActivatedPageInner({ router }: { router: ReturnType<typeof useRouter> }) {
   const searchParams = useSearchParams();
   const [isAuthorized, setIsAuthorized] = useState(false);
   const [error, setError] = useState<string | null>(null);
