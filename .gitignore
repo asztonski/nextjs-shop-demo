@@ -51,3 +51,4 @@ node_modules/
 /playwright/.cache/
 /playwright/.auth/
 playwright-report/index.html
+playwright-report/index.html
