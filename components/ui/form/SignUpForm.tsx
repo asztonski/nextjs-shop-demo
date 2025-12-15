@@ -214,6 +214,7 @@ export const SignUpForm = () => {
               isInvalid={!isValid}
               errorMessage={errorMessage}
               onBlur={onBlur}
+              ariaInvalid={isValid}
             />
           )
         )}
