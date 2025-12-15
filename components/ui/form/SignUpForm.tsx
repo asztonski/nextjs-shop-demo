@@ -78,6 +78,7 @@ export const SignUpForm = () => {
       },
       onBlur: () => handleUsernameValidation(username),
       icon: UserIcon,
+      type: "text",
       errorMessage:
         "Username must be 3-20 characters long, start with uppercase letter, rest lowercase letters or numbers",
       isValid: isUsernameValid,
@@ -96,6 +97,7 @@ export const SignUpForm = () => {
       },
       onBlur: () => handleEmailValidation(email),
       icon: EnvelopeIcon,
+      type: "email",
       errorMessage: "Invalid email address",
       isValid: isEmailValid,
     },
