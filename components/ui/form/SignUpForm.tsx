@@ -224,8 +224,9 @@ export const SignUpForm = () => {
       </form>
       <p
         className={`text-red-500 mt-2 ease-in-out duration-300 ${
-          submitError ? "" : "opacity-0"
+          submitError ? "opacity-100" : "opacity-0"
         }`}
+        role="alert"
       >
         {submitError ? submitError : "."}
       </p>
