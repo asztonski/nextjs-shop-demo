@@ -26,6 +26,7 @@ export const SignInForm = () => {
         setEmail(e.target.value), setSubmitError("")
       ),
       icon: EnvelopeIcon,
+      type: "email",
       errorMessage: "Invalid email address",
     },
     {
@@ -112,8 +113,9 @@ export const SignInForm = () => {
       </p>
       <p
         className={`text-red-500 mt-2 mx-auto w-max ease-in-out duration-300 ${
-          submitError ? "" : "opacity-0"
+          submitError ? "opacity-100" : "opacity-0"
         }`}
+        role="alert"
       >
         {submitError ? submitError : "."}
       </p>
