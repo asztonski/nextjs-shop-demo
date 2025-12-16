@@ -14,6 +14,7 @@ export const TextField = ({
   errorMessage,
   onBlur,
   name,
+  ariaInvalid,
 }: {
   placeholder: string;
   value: string;
@@ -26,6 +27,7 @@ export const TextField = ({
   errorMessage?: string;
   onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
   name?: string;
+  ariaInvalid?: boolean;
 }) => {
   return (
     <div className={`relative w-full`}>
@@ -56,6 +58,7 @@ export const TextField = ({
             className={`p-2 bg-inherit ${inputClassName}`}
             onBlur={onBlur}
             name={name}
+            aria-invalid={ariaInvalid}
           />
         </div>
       </div>

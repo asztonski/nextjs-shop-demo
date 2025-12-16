@@ -78,6 +78,7 @@ export const SignUpForm = () => {
       },
       onBlur: () => handleUsernameValidation(username),
       icon: UserIcon,
+      type: "text",
       errorMessage:
         "Username must be 3-20 characters long, start with uppercase letter, rest lowercase letters or numbers",
       isValid: isUsernameValid,
@@ -96,6 +97,7 @@ export const SignUpForm = () => {
       },
       onBlur: () => handleEmailValidation(email),
       icon: EnvelopeIcon,
+      type: "email",
       errorMessage: "Invalid email address",
       isValid: isEmailValid,
     },
@@ -212,6 +214,7 @@ export const SignUpForm = () => {
               isInvalid={!isValid}
               errorMessage={errorMessage}
               onBlur={onBlur}
+              ariaInvalid={isValid}
             />
           )
         )}
@@ -222,8 +225,9 @@ export const SignUpForm = () => {
       </form>
       <p
         className={`text-red-500 mt-2 ease-in-out duration-300 ${
-          submitError ? "" : "opacity-0"
+          submitError ? "opacity-100" : "opacity-0"
         }`}
+        role="alert"
       >
         {submitError ? submitError : "."}
       </p>
