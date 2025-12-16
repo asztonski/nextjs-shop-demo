@@ -1,8 +1,10 @@
 import { test, expect } from "@playwright/test";
 
 test.describe("Sign in page", () => {
+  const URL = "http://localhost:3000";
+
   test.beforeEach(async ({ page }) => {
-    await page.goto("http://localhost:3000/sign-in");
+    await page.goto(`${URL}/sign-in`);
   });
 
   test("submit button should be disabled when form is empty", async ({
@@ -44,6 +46,6 @@ test.describe("Sign in page", () => {
 
     await page.click('button[type="submit"], input[type="submit"]');
 
-    await expect(page).toHaveURL(/profile/);
+    await expect(page).toHaveURL(`${URL}/profile`);
   });
 });
