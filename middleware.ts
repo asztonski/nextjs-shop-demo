@@ -5,16 +5,16 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL;
 const VERIFY_ENDPOINT = process.env.NEXT_PUBLIC_CHECK_USER_ENDPOINT;
 
 async function validateTokenOnBackend(
-  token: string,
+  loginToken: string,
   request: NextRequest
 ): Promise<NextResponse> {
   try {
-    console.log("[Middleware] Validating token with backend...");
+    console.log("[Middleware] Validating loginToken with backend...");
 
     const response = await fetch(`${API_URL}/${VERIFY_ENDPOINT}`, {
       method: "GET",
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${loginToken}`,
         "Content-Type": "application/json",
       },
       // Ważne: cache na 60 sekund, żeby nie spamować backendu
@@ -28,7 +28,7 @@ async function validateTokenOnBackend(
       const redirectResponse = NextResponse.redirect(
         new URL("/sign-in", request.url)
       );
-      redirectResponse.cookies.delete("auth-token");
+      redirectResponse.cookies.delete("auth-loginToken");
       return redirectResponse;
     }
 
@@ -42,14 +42,14 @@ async function validateTokenOnBackend(
 }
 
 export async function middleware(request: NextRequest) {
-  const token = request.cookies.get("auth-token")?.value;
+  const loginToken = request.cookies.get("auth-loginToken")?.value;
   const { pathname } = request.nextUrl;
 
   console.log(
     "[Middleware] Path:",
     pathname,
-    "| Token:",
-    token ? "EXISTS" : "MISSING"
+    "| Login Token:",
+    loginToken ? "EXISTS" : "MISSING"
   );
 
   // Ścieżki chronione (wymagają zalogowania)
@@ -64,18 +64,18 @@ export async function middleware(request: NextRequest) {
   const isAuthPath = authPaths.some((path) => pathname.startsWith(path));
 
   // Jeśli brak tokenu i próba dostępu do chronionej strony
-  if (isProtectedPath && !token) {
-    console.log("[Middleware] Redirecting to /sign-in - no token");
+  if (isProtectedPath && !loginToken) {
+    console.log("[Middleware] Redirecting to /sign-in - no loginToken");
     return NextResponse.redirect(new URL("/sign-in", request.url));
   }
 
-  // Jeśli jest token i chroniona ścieżka - waliduj z backendem
-  if (token && isProtectedPath) {
-    return validateTokenOnBackend(token, request);
+  // Jeśli jest loginToken i chroniona ścieżka - waliduj z backendem
+  if (loginToken && isProtectedPath) {
+    return validateTokenOnBackend(loginToken, request);
   }
 
   // Jeśli użytkownik zalogowany próbuje wejść na /sign-in lub /sign-up
-  if (isAuthPath && token) {
+  if (isAuthPath && loginToken) {
     console.log("[Middleware] Redirecting to /profile - already logged in");
     return NextResponse.redirect(new URL("/profile", request.url));
   }
@@ -84,7 +84,7 @@ export async function middleware(request: NextRequest) {
   const publicOnlyPages = ["/activation-required", "/account-activated"];
 
   if (publicOnlyPages.some((page) => pathname.startsWith(page))) {
-    if (token) {
+    if (loginToken) {
       return NextResponse.redirect(new URL("/", request.url));
     }
   }
