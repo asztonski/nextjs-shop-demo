@@ -3,7 +3,7 @@ import { Work_Sans, Space_Mono } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/ui/header/Header";
 import { Footer } from "@/components/ui/footer/Footer";
-import { AuthSync } from "./(auth)/AuthSync";
+import { AuthSync } from "./providers/AuthSync";
 import { GlobalModal } from "@/components/ui/modal/GlobalModal";
 import { ValidateUser } from "./ValidateUser";
 
