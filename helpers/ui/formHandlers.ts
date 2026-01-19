@@ -2,6 +2,10 @@ import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.share
 import { registerUser } from "../auth/register";
 import { useAuthStore } from "@/app/store/auth";
 import { loginUser } from "../auth/login";
+import {
+  setActivationEmail,
+  setActivationAccess,
+} from "@/app/actions/setActivationEmail";
 // Definicje interfejsów dla danych formularza
 export interface RegisterFormData {
   username: string;
@@ -73,20 +77,19 @@ export const handleRegisterSubmit = async ({
     setIsSubmitting(true);
 
     try {
-      const response = await registerUser({ username, email, password });
-      if (response.activationAccessToken) {
-        router.push(
-          `/activation-required?token=${response.activationAccessToken}`
-        );
-      } else {
-        // Fallback - zapisz email w sessionStorage
-        sessionStorage.setItem("pendingActivation", email);
-        router.push("/activation-required");
-      }
+      await registerUser({ username, email, password });
+      // Store email and set access token for activation page
+      await setActivationEmail(email);
+      await setActivationAccess();
+
+      // Simple redirect without token in URL
+      router.push("/activation-required");
     } catch (error) {
       setSubmitError(
         error instanceof Error ? error.message : "Nieznany błąd rejestracji"
       );
+    } finally {
+      setIsSubmitting(false);
     }
   }
 };
@@ -134,6 +137,7 @@ export const handleLoginSubmit = async ({
       throw new Error("Brak tokenu w odpowiedzi z serwera");
     }
   } catch (error) {
+    setIsSubmitting(false);
     setSubmitError(
       error instanceof Error ? error.message : "Nieznany błąd logowania"
     );

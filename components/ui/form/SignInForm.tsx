@@ -54,12 +54,14 @@ export const SignInForm = () => {
     });
   };
 
+  const TIMER = 2500; // 2.5 seconds
+
   useEffect(() => {
     if (submitError || isLoggingIn) {
       const timer = setTimeout(() => {
         setSubmitError("");
         setIsLoggingIn(false);
-      }, 5000);
+      }, TIMER);
 
       return () => clearTimeout(timer);
     }
@@ -100,7 +102,7 @@ export const SignInForm = () => {
           className="py-3 !w-full"
           type="submit"
         >
-          {isLoggingIn ? "Logging In..." : "Log In"}
+          {isLoggingIn ? "Signing In..." : "Sign In"}
         </Button>
 
         {/* Wyświetl błąd jeśli wystąpił */}
@@ -111,13 +113,19 @@ export const SignInForm = () => {
           Sign up
         </Link>
       </p>
+      <p className="flex gap-1 mt-4 mx-auto w-max text-xs" role="alert">
+        <span>Didn&apos;t receive the activation email?</span>
+        <Link className="text-accent hover:underline" href="/resend-activation">
+          Resend
+        </Link>
+      </p>
       <p
-        className={`text-red-500 mt-2 mx-auto w-max ease-in-out duration-300 ${
+        className={`text-red-500 mt-2 mx-auto ease-in-out duration-300 ${
           submitError ? "opacity-100" : "opacity-0"
         }`}
         role="alert"
       >
-        {submitError ? submitError : "."}
+        {submitError ? submitError : ""}
       </p>
     </div>
   );

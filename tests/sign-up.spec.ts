@@ -1,8 +1,10 @@
 import { test, expect } from "@playwright/test";
 
 test.describe("Sign up page", () => {
+  const URL = "http://localhost:3000";
+
   test.beforeEach(async ({ page }) => {
-    await page.goto("http://localhost:3000/sign-up");
+    await page.goto(`${URL}/sign-up`);
   });
 
   test("submit button should be disabled when form is empty", async ({
@@ -40,16 +42,16 @@ test.describe("Sign up page", () => {
     await expect(submitButton).toBeEnabled();
   });
 
-  //   test("successful submit should redirect to activation-required page", async ({
-  //     page,
-  //   }) => {
-  //     await page.fill('input[name="username"]', "Testuser1");
-  //     await page.fill('input[name="email"]', "test1@example.com");
-  //     await page.fill('input[name="password"]', "Password123");
-  //     await page.fill('input[name="confirmPassword"]', "Password123");
+  test("successful submit should redirect to activation-required page", async ({
+    page,
+  }) => {
+    await page.fill('input[name="username"]', "Testuser1");
+    await page.fill('input[name="email"]', "test1@example.com");
+    await page.fill('input[name="password"]', "Password123");
+    await page.fill('input[name="confirmPassword"]', "Password123");
 
-  //     await page.click('button[type="submit"], input[type="submit"]');
+    await page.click('button[type="submit"], input[type="submit"]');
 
-  //     await expect(page).toHaveURL(/activation-required/);
-  //   });
+    await expect(page).toHaveURL(`${URL}/activation-required`);
+  });
 });
