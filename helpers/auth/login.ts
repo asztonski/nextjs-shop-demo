@@ -41,6 +41,11 @@ export const loginUser = async (email: string, password: string) => {
         throw new Error(errorMessage);
       }
 
+      // Status 403 - Konto nieaktywowane
+      if (response.status === 403) {
+        throw new Error(errorData.error || "ACCOUNT_NOT_ACTIVATED");
+      }
+
       // Status 423 - Konto zablokowane
       if (response.status === 423) {
         const { remainingMinutes } = errorData;
