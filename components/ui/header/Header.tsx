@@ -166,7 +166,7 @@ export const Header = () => {
         className={`absolute w-full bg-background/85 lg:blur-xl inset-0 ease-linear h-screen transition-transform duration-[${ANIM_MS}ms] ${
           isOpen
             ? "translate-y-0"
-            : "pointer-events-none delay-150 -translate-y-[85vh] lg:-translate-y-[87.5vh]"
+            : "pointer-events-none delay-150 -translate-y-[90vh] lg:-translate-y-[87.5vh]"
         }`}
       />
 
