@@ -146,3 +146,7 @@ body {
     transform: translateX(calc(-1 * var(--reflectionOffset)));
   }
 }
+
+.clip-inset-0 {
+  clip-path: inset(0);
+}
