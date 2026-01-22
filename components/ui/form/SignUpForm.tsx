@@ -224,12 +224,12 @@ export const SignUpForm = () => {
         {/* Wyświetl błąd jeśli wystąpił */}
       </form>
       <p
-        className={`text-red-500 mt-2 ease-in-out duration-300 ${
+        className={`text-red-500 mt-2 mx-auto ease-in-out duration-300 ${
           submitError ? "opacity-100" : "opacity-0"
         }`}
         role="alert"
       >
-        {submitError ? submitError : "."}
+        {submitError ? submitError : ""}
       </p>
     </div>
   );
